@@ -1,5 +1,5 @@
 ---
-title: "Self-Guided Setup Instructions" # MODIFY THIS TITLE
+title: "Neon Twin Deploy Workshop Setup Instructions (Co-hosted)" # MODIFY THIS TITLE
 chapter: true
 weight: 1 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 ---
@@ -7,7 +7,7 @@ weight: 1 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 <!-- MORE SUBMODULES CAN BE ADDED TO DIVIDE UP THE SETUP INTO SMALLER SECTIONS -->
 <!-- COPY AND PASTE THIS SUBMODULE FILE, RENAME, AND CHANGE THE CONTENTS AS NECESSARY -->
 
-# AWS Account Setup <!-- MODIFY THIS HEADING -->
+# Setting up your environment for a Neon Twin Deploy Workshop <!-- MODIFY THIS HEADING -->
 
 ## Submodule One Heading <!-- MODIFY THIS SUBHEADING -->
 

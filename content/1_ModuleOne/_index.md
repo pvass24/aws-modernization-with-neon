@@ -24,20 +24,20 @@ Neon is currently free to use. There are different pricing plans for different u
 ## Workshop Structure <!-- MODIFY THIS SUBHEADING -->
 
 <ul>
-    <li> Prerequisites *(~30 minutes)* </li>
-    <li> Module 1: Addressing RDS Development Challenges and Unlocking Neon's Potential *(30 minutes)*
+    <li> Prerequisites (~30 minutes) </li>
+    <li> Module 1: Addressing RDS Development Challenges and Unlocking Neon's Potential (30 minutes)
         <ul>
             <li> Part 1: Understanding RDS Development Pain Points</li>
             <li> Part 2:  Enhancing Development Workflows with Neon</li>
             <li> Part 3: Setting Up Your First Neon Project</li>
         </ul>
     </li>
-    <li> Module 2: Set Up Environment for Neon Twin Deploy Workflow (~30-45 minutes)</li>
+    <li> Module 2: Set Up Environment for Neon Twin Deploy Workflow (~30 minutes)</li>
         <ul>
             <li> Path A: For Users Already Running RDS in Production or Staging </li>
             <li> Path B: For Users who are not running RDS in Production or Staging</li>
         </ul>
-    <li> Neon Twin Deploy Workflow *(~30-45 minutes)*</li>
+    <li> Module 3: Neon Twin Deploy Workflow *(~30 minutes)*</li>
         <ul>
             <li> Learn how to create a "Neon Twin," a synchronized copy of your RDS database. </li>
             <li> Automate nightly synchronization using pg_dump, pg_restore, and GitHub Actions. </li>
@@ -45,6 +45,8 @@ Neon is currently free to use. There are different pricing plans for different u
         </ul>
 </ul>
 
-
+{{% notice info %}}
 <p style='text-align: left;'>
+**REMOVE:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
 </p>
+{{% /notice %}}

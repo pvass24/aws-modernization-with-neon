@@ -6,7 +6,7 @@ weight: 1
 
 # AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon <!-- CHANGE THIS TO BE THE TITLE OF YOUR WORKSHOP -->
 <br>
-![Partner Logo](/images/AWS_Logo.png)  <!-- ADD YOUR PARTNER LOGO HERE USING THE INSTRUCTIONS BELOW -->
+<center>![Neon Logo](static/images/Neonlogo1.png)</center>
 <br>
 
 ## Welcome
@@ -22,12 +22,6 @@ In this 120-minute workshop, we’ll show you how to boost your development spee
 <br>
 
 We’ll guide you step-by-step through setting up Neon as your development environment, automating data transfer from RDS to Neon using ``pg_dump`` and GitHub Actions and how to efficiently migrate changes back to RDS. By the end, you’ll be equipped to iterate faster, collaborate better, and reduce costs—all while keeping your production database stable on RDS.
-
-## Co-hosted Workshop vs Self-paced Workshop: 
-
-
-
-
 
 <br> 
 <br>

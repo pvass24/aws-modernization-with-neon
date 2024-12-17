@@ -1,13 +1,15 @@
-About Neon: 
+---
+title: "About Neon" # MODIFY THIS TITLE IF APPLICABLE
+chapter: true
+weight: 2 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
+---
+
+# About Neon<!-- MODIFY THIS HEADING IF APPLICABLE -->
+
+## Mission<!-- MODIFY THIS SUBHEADING -->
+Neon is a Postgres database provider that takes the world’s most loved database and delivers it as a serverless platform designed to help teams ship reliable and scalable applications faster.
 
 
+### Our Technology <!-- MODIFY THIS HEADING -->
+![Neon Technology](/static/images/neontech.jpg)
 
-
-Before diving in, there are several things you’ll need to know to build the pg_dump and restore workflow:
-
-RDS connection string
-AWS deployment region
-A Neon account
-A Neon database (deployed to the same AWS region as your RDS database)
-While not absolutely necessary, using the same AWS region can help reduce egress charges. Neon does not charge for ingress. 
-GitHub repository access to Actions and Secrets
