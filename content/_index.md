@@ -6,7 +6,7 @@ weight: 1
 
 # AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon <!-- CHANGE THIS TO BE THE TITLE OF YOUR WORKSHOP -->
 <br>
-<center>![Neon Logo](static/images/Neonlogo1.png)</center>
+<center>![Neon Logo](../static/images/Neonlogo1.png)</center>
 <br>
 
 ## Welcome
