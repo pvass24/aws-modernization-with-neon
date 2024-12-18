@@ -1,11 +1,11 @@
 ---
-title: " Module One " # MODIFY THIS TITLE IF APPLICABLE
+title: " Set Up Instructions " # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
 weight: 2
 ---
 
-#  Addressing RDS Development Challenges and Unlocking Neon's Potential <!-- MODIFY THIS HEADING -->
-## Overcoming Bottlenecks & Enhancing Workflows with Neon 
+!-- MODIFY THIS HEADING -->
+# Overcoming Bottlenecks & Enhancing Dev/Test Workflows with Neon 
 AWS RDS for PostgreSQL is a solid, established solution that has been instrumental in bringing Postgres into modern workplaces. While Neon can handle mission-critical workloads, its real strength lies in optimizing the developer workflow so your developers can build faster and optimize costs.
 
 ## RDS in Development: Overview of AWS RDS Bottlenecks 
@@ -31,4 +31,4 @@ Neon’s key features and benefits, focusing on how it improves development and 
 - **Instant Environment Provisioning:** Learn how Neon enables the quick setup of isolated environments for each team member, speeding up development and reducing bottlenecks.
 - **Database Branching:** Explore how Neon’s database branching feature provides isolated, production-like environments for safe experimentation and testing.
 - **CI/CD Integration with GitHub Actions:** Understand how Neon integrates seamlessly with CI/CD workflows, allowing for efficient automation and testing pipelines.
-- Discover how Neon’s scale-to-zero functionality helps save on infrastructure costs by automatically scaling down environments when not in use.
+- **Scale-to-zero:**  Discover how Neon’s scale-to-zero functionality helps save on infrastructure costs by automatically scaling down environments when not in use.
