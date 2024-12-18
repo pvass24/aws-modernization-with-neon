@@ -34,7 +34,7 @@ If you’re new to Neon, the first step is to [sign up](https://console.neon.te
 
 After you have signed up for a Neon account, follow our [getting started guide](https://neon.tech/docs/get-started-with-neon/signing-up) to create your initial project, you will be introduced to these key Neon terms:
 
-![Neon Object Hierarchy](../../static/images/Neondatabasedr.png)
+![Neon Object Hierarchy](/static/images/Neondatabasedr.png)
 
 
 - **Project:** The top-level container for your Neon databases—the logical equivalent to an “instance” in RDS.
@@ -72,9 +72,3 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/bl
     - **Add necessary secrets** to GitHub Secrets: You’ll need the connection URLs for both your RDS production database and your Neon database (these can be added to GitHub Secrets under `PROD_DATABASE_URL` and `DEV_DATABASE_URL`).
 
     [GitHub Directions For Adding Secrets]
-
-
-
-
-
-

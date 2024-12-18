@@ -11,5 +11,5 @@ Neon is a Postgres database provider that takes the world’s most loved databas
 
 
 ### Our Technology <!-- MODIFY THIS HEADING -->
-![Neon Technology](../../static/images/neontech.jpg)
+![Neon Technology](/static/images/neontech.jpg)
 
