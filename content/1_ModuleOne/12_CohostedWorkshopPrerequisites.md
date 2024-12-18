@@ -33,7 +33,7 @@ If you’re new to Neon, the first step is to [sign up](https://console.neon.te
 
 After you have signed up for a Neon account, follow our [getting started guide](https://neon.tech/docs/get-started-with-neon/signing-up) to create your initial project, you will be introduced to these key Neon terms:
 
-![Neon Object Hierarchy](/static/images/Neondatabasedr.png)
+![Neon Object Hierarchy](/images/Neondatabasedr.png)
 
 
 - **Project:** The top-level container for your Neon databases—the logical equivalent to an “instance” in RDS.
