@@ -1,12 +1,12 @@
 ---
-title: "AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon" # MODIFY THIS TO BE THE TITLE OF YOUR WORKSHOP
+title: "AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon"
 chapter: true
 weight: 1
 ---
 
-# AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon <!-- CHANGE THIS TO BE THE TITLE OF YOUR WORKSHOP -->
+# AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon 
 <br>
-<center>![Neon Logo](/images/Neonlogo1.png)</center>
+<center>![Neon Logo](Neonlogo1.png)</center>
 <br>
 
 ## Welcome
