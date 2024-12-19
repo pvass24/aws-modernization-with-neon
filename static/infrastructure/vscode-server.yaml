@@ -48,6 +48,16 @@ Parameters:
     Description: S3 path holding the folder zip file, with each folder being a subfolder of the home directory. Each folder will have its own local git repo. To not include any folders, leave blank
     Type: String
     Default: ''
+  DBEndpoint:
+    Type: String
+    Default: !ImportValue RDS-DBEndpoint
+  DBUsername:
+    Type: String
+    Default: !ImportValue RDS-DBUsername
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Default: !ImportValue RDS-DBPassword
 
 Conditions:
   IsAL2023: !Equals [!Ref InstanceOperatingSystem, 'AmazonLinux-2023']
@@ -1026,6 +1036,72 @@ Resources:
                     sudo -u ${VSCodeUser} git -C ${HomeFolder} branch
                     ls -la ${HomeFolder}
                   fi
+          - action: aws:runShellScript
+            name: FullDatabaseSetup
+            inputs:
+              runCommand:
+                - '#!/bin/bash'
+                - !Sub |
+                    echo "Updating system packages..."
+                    yum update -y
+
+                    echo "Installing PostgreSQL and utilities..."
+                    amazon-linux-extras enable postgresql14
+                    yum install -y postgresql wget gzip tmux htop jq
+
+                    echo "Configuring environment variables..."
+                    cat > /etc/environment << EOF
+                    DB_ENDPOINT=${RDSInstance.Endpoint.Address}
+                    DB_USERNAME=${DBUsername}
+                    DB_PASSWORD=${DBPassword}
+                    DB_NAME=employees
+                    PGPASSWORD=${DBPassword}
+                    DATABASE_URL=postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+                    EOF
+
+                    chmod 644 /etc/environment
+                    source /etc/environment
+
+                    echo "Creating database setup script..."
+                    cat > /usr/local/bin/setup_db.sh << 'SETUP_DB_EOF'
+                    #!/bin/bash
+
+                    # Source environment variables
+                    set -a
+                    source /etc/environment
+                    set +a
+
+                    echo "Downloading employee dataset..."
+                    wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz
+
+                    echo "Decompressing dataset..."
+                    pg_restore -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
+
+                    echo "Cleaning up..."
+                    rm -f /tmp/employees.sql*
+
+                    echo "Setup complete!"
+                    SETUP_DB_EOF
+
+                    chmod 755 /usr/local/bin/setup_db.sh
+
+                    echo "Creating aliases for database commands..."
+                    cat > /etc/profile.d/00-aliases.sh << 'ALIASES_EOF'
+                    alias psql-db='psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME'
+                    alias check-data='psql-db -c "SELECT COUNT(*) FROM employees;"'
+                    ALIASES_EOF
+
+                    chmod 644 /etc/profile.d/00-aliases.sh
+                    source /etc/profile.d/00-aliases.sh
+
+                    echo "Running setup script..."
+                    /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
+
+                    echo "Database setup completed."
+
+
+          
+  
 
   VSCodeInstanceRole:
     Type: AWS::IAM::Role
@@ -1328,3 +1404,12 @@ Outputs:
   Password:
     Description: VSCode-Server Password
     Value: !GetAtt SecretPlaintext.password
+  EnvironmentVariables:
+    Description: The environment variables configured on the instance
+    Value: !Sub |
+      DB_ENDPOINT=${RDSInstance.Endpoint.Address}
+      DB_USERNAME=${DBUsername}
+      DB_PASSWORD=${DBPassword}
+  DBAliases:
+    Description: Useful command aliases for database interaction
+    Value: !ImportValue RDS-DBAliases
