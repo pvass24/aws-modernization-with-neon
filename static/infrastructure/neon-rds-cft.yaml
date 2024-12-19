@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: RDS PostgreSQL instance with EC2 instance accessible via SSM
+Description: RDS PostgreSQL instance
 
 Parameters:
   DBUsername:
@@ -22,32 +22,6 @@ Resources:
       Tags:
         - Key: Name
           Value: Database-VPC
-
-  PublicSubnet1:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      CidrBlock: 10.0.1.0/24
-      MapPublicIpOnLaunch: true
-      AvailabilityZone: !Select 
-        - 0
-        - !GetAZs ''
-      Tags:
-        - Key: Name
-          Value: Public-Subnet-1
-
-  PublicSubnet2:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      CidrBlock: 10.0.2.0/24
-      MapPublicIpOnLaunch: true
-      AvailabilityZone: !Select 
-        - 1
-        - !GetAZs ''
-      Tags:
-        - Key: Name
-          Value: Public-Subnet-2
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -88,34 +62,6 @@ Resources:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
 
-  PublicRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref VPC
-      Tags:
-        - Key: Name
-          Value: Public-Route-Table
-
-  PublicRoute:
-    Type: AWS::EC2::Route
-    DependsOn: VPCGatewayAttachment
-    Properties:
-      RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref InternetGateway
-
-  PublicSubnet1RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref PublicSubnet1
-      RouteTableId: !Ref PublicRouteTable
-
-  PublicSubnet2RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref PublicSubnet2
-      RouteTableId: !Ref PublicRouteTable
-
   DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -125,8 +71,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          SourceSecurityGroupId: !Ref EC2SecurityGroup
-
+          CidrIp: 10.0.0.0/16
 
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
@@ -155,7 +100,6 @@ Resources:
       Tags:
         - Key: Name
           Value: Employees-DB
-
 
 Outputs:
   DBEndpoint:
