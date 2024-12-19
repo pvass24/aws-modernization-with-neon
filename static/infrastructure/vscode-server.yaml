@@ -50,13 +50,13 @@ Parameters:
     Default: ''
   DBEndpoint:
     Type: String
-    Description: The RDS endpoint for the database
+    Description: The RDS database endpoint
   DBUsername:
     Type: String
-    Description: The username for the database
+    Description: The RDS database username
   DBPassword:
     Type: String
-    Description: The password for the database
+    Description: The RDS database password
     NoEcho: true
 
 Conditions:
@@ -1053,6 +1053,7 @@ Resources:
                     DB_ENDPOINT=$(aws ssm get-parameter --name /rds/db-endpoint --query 'Parameter.Value' --output text)
                     DB_USERNAME=$(aws ssm get-parameter --name /rds/db-username --query 'Parameter.Value' --output text)
                     DB_PASSWORD=$(aws ssm get-parameter --name /rds/db-password --with-decryption --query 'Parameter.Value' --output text)
+                    CONNECTION_STRING=$(aws ssm get-parameter --name /rds/connection-string --query 'Parameter.Value' --output text)
 
                     echo "Configuring environment variables..."
                     cat > /etc/environment << EOF
@@ -1061,7 +1062,7 @@ Resources:
                     DB_PASSWORD=$DB_PASSWORD
                     DB_NAME=employees
                     PGPASSWORD=$DB_PASSWORD
-                    DATABASE_URL=postgresql://$DB_USERNAME:$DB_PASSWORD@$DB_ENDPOINT:5432/employees
+                    DATABASE_URL=$CONNECTION_STRING
                     EOF
 
                     chmod 644 /etc/environment
@@ -1103,6 +1104,7 @@ Resources:
                     /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
 
                     echo "Database setup completed."
+
 
 
 
@@ -1425,7 +1427,7 @@ Outputs:
   EnvironmentVariables:
     Description: The environment variables configured on the instance
     Value: !Sub |
-      DB_ENDPOINT=${RDSInstance.Endpoint.Address}
+      DB_ENDPOINT=${DBEndpoint}
       DB_USERNAME=${DBUsername}
       DB_PASSWORD=${DBPassword}
   DBAliases:
