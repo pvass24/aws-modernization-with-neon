@@ -1431,10 +1431,9 @@ Outputs:
   Password:
     Description: VSCode-Server Password
     Value: !GetAtt SecretPlaintext.password
-  # EnvironmentVariables:
-  #   Description: The environment variables configured on the instance
-  #   Value: !Sub |
-  #     DB_ENDPOINT=${DBEndpoint}
-  #     DB_USERNAME=${DBUsername}
-  #     DB_PASSWORD=${DBPassword}
-  # 
+  EnvironmentVariables:
+    Description: The environment variables configured on the instance
+    Value: !Sub |
+      DB_ENDPOINT=${DBEndpoint}
+      DB_USERNAME=${DBUsername}
+      DB_PASSWORD=${DBPassword}
