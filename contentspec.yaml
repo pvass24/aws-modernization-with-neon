@@ -14,7 +14,7 @@ params:
 
 # List of links to display in the workshop guide. Will be rendered on the left hand side navigation menu.
 additionalLinks:
-  - title: Branching Out: Improving RDS-Based Development with Neon + AWS
+  - title: Branching Out: Improving RDS-Based Development with Neon & AWS
     link: https://neon.awsworkshop.io/
   
 
