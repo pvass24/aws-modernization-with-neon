@@ -153,4 +153,3 @@ Outputs:
     Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
     Export:
       Name: RDS-ConnectionString
-
