@@ -51,15 +51,19 @@ Parameters:
   DBEndpoint:
     Type: String
     Description: The RDS database endpoint.
+    Default: ""
   DBUsername:
     Type: String
     Description: The RDS database username.
+    Default: "postgres"
   DBPassword:
     Type: String
     Description: The RDS database password.
+    Default: "ilovene0n"
   RDSConnectionString:
     Type: String
     Description: The RDS database Connection String.
+    Default: ""
 
 
 Conditions:
