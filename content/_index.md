@@ -1,32 +1,32 @@
 ---
-title: "AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon"
+title: "Branching Out: Improving RDS-Based Development with Neon + AWS"
 chapter: true
 weight: 1
 ---
 
-# AWS Workshop: Overcoming RDS Bottlenecks & Enhancing Development Workflows with Neon 
+# Branching Out: Improving RDS-Based Development with Neon + AWS 
 
 ![Neon Logo](/images/neon-logo.png)
 
 ## Welcome
 
-In this dynamic 120-minute workshop, discover how to supercharge your development speed by seamlessly integrating Neon with your existing AWS RDS Postgres setup.
+Discover how to enhance your development workflow by integrating Neon alongside your existing AWS RDS Postgres setup.
 
-While RDS remains the go-to choice for production environments, it often falls short in providing an optimal development experience. Enter Neon: a cutting-edge serverless PostgreSQL solution that offers powerful database branching capabilities. Neon provides a developer-friendly alternative for your development and testing environments, enabling you to enhance workflows and team collaboration without disrupting your production setup.
+RDS provides a robust and reliable foundation for production environments. Now, with Neon's innovative serverless PostgreSQL solution and powerful database branching capabilities, you can further optimize your development and testing processes. Learn how to leverage both technologies to create a more efficient, flexible development pipeline without altering your production infrastructure.
 
 What you'll learn:
 
-1. Setting up Neon as your agile development environment
-2. Automating data transfer from RDS to Neon using pg_dump and GitHub Actions
-3. Efficiently migrating changes back to RDS
+1. Implementing Neon as a complementary development environment
+2. Streamlining data synchronization between RDS and Neon using pg_dump and GitHub Actions
+3. Efficiently managing changes across both environments
 
-Our step-by-step guide will walk you through each process, ensuring you're equipped to:
+Our step-by-step guide will walk you through each process, enabling you to:
 
-• Iterate faster
-• Collaborate more effectively
-• Reduce development costs
-• Maintain a stable production database on RDS
+• Accelerate iteration cycles
+• Enhance team collaboration
+• Optimize resource utilization in development
+• Maintain consistency between development and production environments
 
-By the end of this workshop, you'll have the knowledge and tools to significantly improve your PostgreSQL development workflow, bridging the gap between RDS stability and Neon's flexibility.
+By the end of this workshop, you'll have the knowledge and tools to create a seamless workflow that combines the strengths of both RDS and Neon, elevating your PostgreSQL development experience.
 
-Join us and transform your database development experience!
+Join us to explore how RDS and Neon can work together to supercharge your database development process!
