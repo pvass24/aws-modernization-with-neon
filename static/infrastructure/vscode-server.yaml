@@ -60,7 +60,7 @@ Parameters:
     Type: String
     Description: The RDS database password.
     Default: !ImportValue RDS-DBPassword
-  RDS-ConnectionString
+  RDS-ConnectionString:
     Type: String
     Description: The RDS database Connection String.
     Default: !ImportValue RDS-ConnectionString
