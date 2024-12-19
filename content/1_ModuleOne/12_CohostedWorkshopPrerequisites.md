@@ -47,9 +47,9 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/bl
 - Once everything is set up, you’ll be able to create additional branches from the main branch to [duplicate your development environment in a second](https://neon.tech/blog/how-to-copy-large-postgres-databases-in-seconds), without additional storage costs, as many times as you need.
 - Every engineer on your team can have their own dev branch, facilitating parallel development without adding overheads in database management or costs.
 
-<br>    
-🚨 Once you’ve set up your Neon account and your project, **create a database in the main branch, and make a note of the connection string.** You will need this in the next step.
-<br>
+{{% notice warning %}}  
+🚨 Once you’ve set up your Neon account and your project, **create a database in the main branch, and make a note of the connection string.** You will need this in the next steps.
+{{% /notice %}}
 
 #### Select Your Project -> Connection Details -> Connection String
 
@@ -63,11 +63,9 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/bl
 
 
 ### 3. GitHub repository access to Actions and Secrets 
-- **Directions for preparing the GitHub Repository** <br>
-    - **Create a GitHub repository** if you don't have one already, as this will store the automation scripts and workflows for the synchronization. <br>
 
-    [GitHub Directions For Creating a Repository Here]
+First you will need to **make sure you have a GitHub Account**, if you do not have one already, you can sign up for one [here.](https://github.com/signup) <br>
 
-    - **Add necessary secrets** to GitHub Secrets: You’ll need the connection URLs for both your RDS production database and your Neon database (these can be added to GitHub Secrets under `PROD_DATABASE_URL` and `DEV_DATABASE_URL`).
+ **Create a GitHub repository** if you don't have one already, as this will store the automation scripts and workflows for the synchronization. <br>
 
-    [GitHub Directions For Adding Secrets]
+- **Add necessary secrets** to GitHub Secrets: You’ll need the connection URLs for both your RDS production database and your Neon database (these can be added to GitHub Secrets under `PROD_DATABASE_URL` and `DEV_DATABASE_URL`).  Directions on how to add secrets to GitHub can be found [here.](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions?tool=webui)
