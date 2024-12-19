@@ -121,28 +121,36 @@ Resources:
       Name: /rds/db-password
       Type: SecureString
       Value: !Ref DBPassword
+  
+  StoreConnectionStringParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/connection-string
+      Type: String
+      Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
 
 Outputs:
   DBEndpoint:
-    Description: Database endpoint
+    Description: The database endpoint.
     Value: !GetAtt RDSInstance.Endpoint.Address
     Export:
       Name: RDS-DBEndpoint
 
   DBUsername:
-    Description: Database admin username
+    Description: Database admin username.
     Value: !Ref DBUsername
     Export:
       Name: RDS-DBUsername
 
   DBPassword:
-    Description: Database admin password
+    Description: Database admin password.
     Value: !Ref DBPassword
     Export:
       Name: RDS-DBPassword
 
   ConnectionString:
-    Description: PostgreSQL connection string
+    Description: PostgreSQL connection string.
     Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
     Export:
       Name: RDS-ConnectionString
+
