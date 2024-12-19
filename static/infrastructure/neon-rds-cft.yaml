@@ -101,6 +101,27 @@ Resources:
         - Key: Name
           Value: Employees-DB
 
+  StoreDBEndpointParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-endpoint
+      Type: String
+      Value: !GetAtt RDSInstance.Endpoint.Address
+
+  StoreDBUsernameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-username
+      Type: String
+      Value: !Ref DBUsername
+
+  StoreDBPasswordParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-password
+      Type: SecureString
+      Value: !Ref DBPassword
+
 Outputs:
   DBEndpoint:
     Description: Database endpoint
