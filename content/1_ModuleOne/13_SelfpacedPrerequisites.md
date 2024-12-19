@@ -1,15 +1,19 @@
 ---
-title: "Self-Paced Workshop Prerequisites" # MODIFY THIS TITLE TO REFLECT NEXT STEPS IF APPLICABLE
+title: "Self-Paced Workshop Prerequisites"
 chapter: true
-weight: 4 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
+weight: 4
 ---
 
 
-# Self-Paced Workshop Prerequisites <!-- MODIFY THIS HEADING IF APPLICABLE -->
+# Self-Paced Workshop Prerequisites
 
-## AWS Prerequisites <!-- MODIFY THIS SUBHEADING -->
-- ### AWS account (Directions for this section provided by AWS)
-[AWS DIRECTIONS ON HOW TO SET UP AN AWS ACCOUNT HERE I.E, WILL THERE BE ANY SPECIFIC STEPS THEY NEED TO FOLLOW TO FIND A CONNECTION STRING IN CERTAIN IAM ROLES - Patrick/Kruthi]
+## AWS Prerequisites
+- ### AWS account
+- Must have an AWS Account [Click Here to Register for an Account](https://aws.amazon.com/free/?gclid=CjwKCAiApY-7BhBjEiwAQMrrEQvPVHrROjm_VPCmPQKxuQ5MDb45z8R8_aYf9qnh9YTa2K88EwxLoRoCZcoQAvD_BwE&trk=78b916d7-7c94-4cab-98d9-0ce5e648dd5f&sc_channel=ps&ef_id=CjwKCAiApY-7BhBjEiwAQMrrEQvPVHrROjm_VPCmPQKxuQ5MDb45z8R8_aYf9qnh9YTa2K88EwxLoRoCZcoQAvD_BwE:G:s&s_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account!9572385111!102212379047&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
+
+- Github Account [Click Here to Register for an Account](https://github.com/join)
+
+
 - ### RDS connection string (Provided by AWS for this workshop)
 [AWS DIRECTIONS ON HOW TO FIND A CONNECTION STRING FOR THE SELF-PACED USER STAGING DATABASE - Patrick/Kruthi]
 - ### AWS deployment region (us-west-2)
