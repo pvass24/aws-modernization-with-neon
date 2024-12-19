@@ -51,19 +51,15 @@ Parameters:
   DBEndpoint:
     Type: String
     Description: The RDS database endpoint.
-    Default: !ImportValue RDS-DBEndpoint
   DBUsername:
     Type: String
     Description: The RDS database username.
-    Default: !ImportValue RDS-DBUsername
   DBPassword:
     Type: String
     Description: The RDS database password.
-    Default: !ImportValue RDS-DBPassword
   RDSConnectionString:
     Type: String
     Description: The RDS database Connection String.
-    Default: !ImportValue RDS-ConnectionString
 
 
 Conditions:
