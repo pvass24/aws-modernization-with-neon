@@ -50,14 +50,11 @@ Parameters:
     Default: ''
   DBEndpoint:
     Type: String
-    Default: !ImportValue RDS-DBEndpoint
   DBUsername:
     Type: String
-    Default: !ImportValue RDS-DBUsername
   DBPassword:
     Type: String
     NoEcho: true
-    Default: !ImportValue RDS-DBPassword
 
 Conditions:
   IsAL2023: !Equals [!Ref InstanceOperatingSystem, 'AmazonLinux-2023']
