@@ -50,14 +50,21 @@ Parameters:
     Default: ''
   DBEndpoint:
     Type: String
-    Description: The RDS database endpoint
+    Description: The RDS database endpoint.
+    Default: !ImportValue RDS-DBEndpoint
   DBUsername:
     Type: String
-    Description: The RDS database username
+    Description: The RDS database username.
+    Default: !ImportValue RDS-DBUsername
   DBPassword:
     Type: String
-    Description: The RDS database password
-    NoEcho: true
+    Description: The RDS database password.
+    Default: !ImportValue RDS-DBPassword
+  RDS-ConnectionString
+    Type: String
+    Description: The RDS database Connection String.
+    Default: !ImportValue RDS-ConnectionString
+
 
 Conditions:
   IsAL2023: !Equals [!Ref InstanceOperatingSystem, 'AmazonLinux-2023']
@@ -1424,12 +1431,10 @@ Outputs:
   Password:
     Description: VSCode-Server Password
     Value: !GetAtt SecretPlaintext.password
-  EnvironmentVariables:
-    Description: The environment variables configured on the instance
-    Value: !Sub |
-      DB_ENDPOINT=${DBEndpoint}
-      DB_USERNAME=${DBUsername}
-      DB_PASSWORD=${DBPassword}
-  DBAliases:
-    Description: Useful command aliases for database interaction
-    Value: !ImportValue RDS-DBAliases
+  # EnvironmentVariables:
+  #   Description: The environment variables configured on the instance
+  #   Value: !Sub |
+  #     DB_ENDPOINT=${DBEndpoint}
+  #     DB_USERNAME=${DBUsername}
+  #     DB_PASSWORD=${DBPassword}
+  # 
