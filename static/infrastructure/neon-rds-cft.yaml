@@ -116,56 +116,6 @@ Resources:
       SubnetId: !Ref PublicSubnet2
       RouteTableId: !Ref PublicRouteTable
 
-  SSMEndpoint:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      VpcId: !Ref VPC
-      ServiceName: !Sub "com.amazonaws.${AWS::Region}.ssm"
-      VpcEndpointType: Interface
-      PrivateDnsEnabled: true
-      SubnetIds:
-        - !Ref PrivateSubnet1
-        - !Ref PrivateSubnet2
-      SecurityGroupIds:
-        - !Ref SSMSecurityGroup
-
-  SSMMessagesEndpoint:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      VpcId: !Ref VPC
-      ServiceName: !Sub "com.amazonaws.${AWS::Region}.ssmmessages"
-      VpcEndpointType: Interface
-      PrivateDnsEnabled: true
-      SubnetIds:
-        - !Ref PrivateSubnet1
-        - !Ref PrivateSubnet2
-      SecurityGroupIds:
-        - !Ref SSMSecurityGroup
-
-  EC2MessagesEndpoint:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      VpcId: !Ref VPC
-      ServiceName: !Sub "com.amazonaws.${AWS::Region}.ec2messages"
-      VpcEndpointType: Interface
-      PrivateDnsEnabled: true
-      SubnetIds:
-        - !Ref PrivateSubnet1
-        - !Ref PrivateSubnet2
-      SecurityGroupIds:
-        - !Ref SSMSecurityGroup
-
-  SSMSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Security group for SSM endpoints
-      VpcId: !Ref VPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-          CidrIp: 10.0.0.0/16
-
   DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -177,16 +127,6 @@ Resources:
           ToPort: 5432
           SourceSecurityGroupId: !Ref EC2SecurityGroup
 
-  EC2SecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Security group for EC2
-      VpcId: !Ref VPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-          CidrIp: 0.0.0.0/0
 
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
@@ -195,27 +135,6 @@ Resources:
       SubnetIds:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
-
-  EC2Role:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: ec2.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
-      Path: "/"
-
-  EC2InstanceProfile:
-    Type: AWS::IAM::InstanceProfile
-    Properties:
-      Path: "/"
-      Roles:
-        - !Ref EC2Role
 
   RDSInstance:
     Type: AWS::RDS::DBInstance
@@ -237,90 +156,28 @@ Resources:
         - Key: Name
           Value: Employees-DB
 
-  SeederInstance:
-    Type: AWS::EC2::Instance
-    Properties:
-      ImageId: "{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}"
-      InstanceType: t3.micro
-      IamInstanceProfile: !Ref EC2InstanceProfile
-      SecurityGroupIds:
-        - !Ref EC2SecurityGroup
-      SubnetId: !Ref PublicSubnet1
-      Tags:
-        - Key: Name
-          Value: DB-Seeder-Instance
-      UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash
-          
-          # Update system
-          yum update -y
-          
-          # Install PostgreSQL properly for Amazon Linux
-          amazon-linux-extras enable postgresql14
-          yum install -y postgresql
-
-          # Install other utilities
-          yum install -y wget gzip tmux htop jq
-
-          # Create environment file in a global location
-          cat > /etc/environment << EOF
-          DB_ENDPOINT=${RDSInstance.Endpoint.Address}
-          DB_USERNAME=${DBUsername}
-          DB_PASSWORD=${DBPassword}
-          DB_NAME=employees
-          PGPASSWORD=${DBPassword}
-          DATABASE_URL=postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
-          EOF
-
-          # Set proper permissions
-          chmod 644 /etc/environment
-
-          # Create the setup script in a location accessible to all users
-          cat > /usr/local/bin/setup_db.sh << 'EOF'
-          #!/bin/bash
-          
-          # Source environment variables
-          set -a
-          source /etc/environment
-          set +a
-
-          echo "Downloading employee dataset..."
-          wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz
-
-          echo "Decompressing dataset..."
-          pg_restore -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
-
-          echo "Cleaning up..."
-          rm -f /tmp/employees.sql*
-
-          echo "Setup complete!"
-          EOF
-
-          # Make setup script executable for all users
-          chmod 755 /usr/local/bin/setup_db.sh
-
-          # Create global aliases file
-          cat > /etc/profile.d/00-aliases.sh << 'EOF'
-          alias psql-db='psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME'
-          alias check-data='psql-db -c "SELECT COUNT(*) FROM employees;"'
-          EOF
-
-          chmod 644 /etc/profile.d/00-aliases.sh
-
-          # Run the setup script immediately
-          /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
 
 Outputs:
   DBEndpoint:
     Description: Database endpoint
     Value: !GetAtt RDSInstance.Endpoint.Address
-  EC2InstanceId:
-    Description: EC2 instance ID for SSM access
-    Value: !Ref SeederInstance
-  SSMAccess:
-    Description: Command to access instance via SSM
-    Value: !Sub "aws ssm start-session --target ${SeederInstance}"
+    Export:
+      Name: RDS-DBEndpoint
+
+  DBUsername:
+    Description: Database admin username
+    Value: !Ref DBUsername
+    Export:
+      Name: RDS-DBUsername
+
+  DBPassword:
+    Description: Database admin password
+    Value: !Ref DBPassword
+    Export:
+      Name: RDS-DBPassword
+
   ConnectionString:
     Description: PostgreSQL connection string
     Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+    Export:
+      Name: RDS-ConnectionString
