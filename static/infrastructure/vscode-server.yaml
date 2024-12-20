@@ -1050,16 +1050,15 @@ Resources:
                 - '#!/bin/bash'
                 - !Sub |
                     echo "Updating system packages..."
-                    yum update -y
+                    dnf update -y
 
                     echo "Installing PostgreSQL and utilities..."
-                    amazon-linux-extras enable postgresql14
-                    yum install -y postgresql wget gzip tmux htop jq
+                    dnf install -y postgresql15.aarch64 postgresql15-server postgresql15-contrib wget gzip tmux htop jq
 
                     echo "Fetching RDS details from SSM Parameter Store..."
                     DB_ENDPOINT=$(aws ssm get-parameter --name /rds/db-endpoint --query 'Parameter.Value' --output text)
                     DB_USERNAME=$(aws ssm get-parameter --name /rds/db-username --query 'Parameter.Value' --output text)
-                    DB_PASSWORD=$(aws ssm get-parameter --name /rds/db-password --with-decryption --query 'Parameter.Value' --output text)
+                    DB_PASSWORD=$(aws ssm get-parameter --name /rds/db-password --query 'Parameter.Value' --output text)
                     CONNECTION_STRING=$(aws ssm get-parameter --name /rds/connection-string --query 'Parameter.Value' --output text)
 
                     echo "Configuring environment variables..."
@@ -1107,6 +1106,10 @@ Resources:
                     chmod 644 /etc/profile.d/00-aliases.sh
                     source /etc/profile.d/00-aliases.sh
 
+                    echo "Running setup script..."
+                    /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
+
+                    echo "Database setup completed."
                     echo "Running setup script..."
                     /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
 
