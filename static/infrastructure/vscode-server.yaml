@@ -1431,12 +1431,3 @@ Outputs:
   Password:
     Description: VSCode-Server Password
     Value: !GetAtt SecretPlaintext.password
-  DBENDPOINT:
-    Description: RDS Database Endpoint
-    Value: ${DBEndpoint}
-  DBUSERNAME:
-    Description: RDS Database Username
-    Value: ${DBUsername}
-  DBPASSWORD:
-    Description: RDS Database Password
-    Value: ${DBUsername}
