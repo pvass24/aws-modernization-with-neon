@@ -1,0 +1,180 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: RDS PostgreSQL instance in default VPC
+
+Parameters:
+  DBUsername:
+    Type: String
+    Description: Database admin username
+    Default: postgres
+  DBPassword:
+    Type: String
+    Description: Database admin password
+    NoEcho: true
+    Default: ilovene0n
+
+Resources:
+  # Get default VPC
+  DefaultVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Default VPC
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+
+  # Lambda to find default VPC subnets
+  DefaultVPCSubnetsLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: index.lambda_handler
+      Role: !GetAtt DefaultVPCSubnetsLambdaRole.Arn
+      Code:
+        ZipFile: |
+          import boto3
+          import cfnresponse
+          
+          def lambda_handler(event, context):
+              if event['RequestType'] in ['Create', 'Update']:
+                  try:
+                      ec2 = boto3.client('ec2')
+                      vpc_id = event['ResourceProperties']['VpcId']
+                      
+                      # Get all subnets in the VPC
+                      response = ec2.describe_subnets(
+                          Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}]
+                      )
+                      
+                      subnet_ids = [subnet['SubnetId'] for subnet in response['Subnets']]
+                      
+                      cfnresponse.send(event, context, cfnresponse.SUCCESS, 
+                                     {'SubnetIds': subnet_ids})
+                  except Exception as e:
+                      cfnresponse.send(event, context, cfnresponse.FAILED, 
+                                     {'Error': str(e)})
+              else:
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+      Runtime: python3.9
+      Timeout: 30
+      Architectures:
+        - arm64
+
+  # IAM role for the Lambda
+  DefaultVPCSubnetsLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DescribeSubnets
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - ec2:DescribeSubnets
+                Resource: '*'
+
+  # Get default VPC subnets
+  DefaultVPCSubnets:
+    Type: Custom::DefaultVPCSubnets
+    Properties:
+      ServiceToken: !GetAtt DefaultVPCSubnetsLambda.Arn
+      VpcId: !Ref DefaultVPC
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for RDS
+      VpcId: !Ref DefaultVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: !GetAtt DefaultVPC.CidrBlock
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS using default VPC subnets
+      SubnetIds: !GetAtt DefaultVPCSubnets.SubnetIds
+
+  RDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: employees
+      Engine: postgres
+      EngineVersion: 14.9
+      DBInstanceClass: db.t3.micro
+      AllocatedStorage: 20
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+      PubliclyAccessible: false
+      BackupRetentionPeriod: 1
+      MultiAZ: false
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      Tags:
+        - Key: Name
+          Value: Employees-DB
+
+  StoreDBEndpointParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-endpoint
+      Type: String
+      Value: !GetAtt RDSInstance.Endpoint.Address
+
+  StoreDBUsernameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-username
+      Type: String
+      Value: !Ref DBUsername
+
+  StoreDBPasswordParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/db-password
+      Type: String
+      Value: !Ref DBPassword
+  
+  StoreConnectionStringParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /rds/connection-string
+      Type: String
+      Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+
+Outputs:
+  DBEndpoint:
+    Description: The database endpoint.
+    Value: !GetAtt RDSInstance.Endpoint.Address
+    Export:
+      Name: RDS-DBEndpoint
+
+  DBUsername:
+    Description: Database admin username.
+    Value: !Ref DBUsername
+    Export:
+      Name: RDS-DBUsername
+
+  DBPassword:
+    Description: Database admin password.
+    Value: !Ref DBPassword
+    Export:
+      Name: RDS-DBPassword
+
+  ConnectionString:
+    Description: PostgreSQL connection string.
+    Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+    Export:
+      Name: RDS-ConnectionString
