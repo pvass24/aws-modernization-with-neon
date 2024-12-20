@@ -173,7 +173,7 @@ Outputs:
     Export:
       Name: RDS-DBPassword
 
-  RDS-ConnectionString:
+  ConnectionString:
     Description: PostgreSQL connection string.
     Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
     Export:
