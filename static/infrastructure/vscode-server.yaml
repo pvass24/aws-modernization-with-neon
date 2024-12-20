@@ -1044,6 +1044,29 @@ Resources:
                     ls -la ${HomeFolder}
                   fi
           - action: aws:runShellScript
+            name: EnsureEnvironment
+            inputs:
+              runCommand:
+                - '#!/bin/bash'
+                - !Sub |
+                  # Re-fetch and set up environment variables for user
+                  DB_ENDPOINT=$(aws ssm get-parameter --name /rds/db-endpoint --query 'Parameter.Value' --output text)
+                  DB_USERNAME=$(aws ssm get-parameter --name /rds/db-username --query 'Parameter.Value' --output text)
+                  DB_PASSWORD=$(aws ssm get-parameter --name /rds/db-password --query 'Parameter.Value' --output text)
+                  CONNECTION_STRING=$(aws ssm get-parameter --name /rds/connection-string --query 'Parameter.Value' --output text)
+                  
+                  # Add to user's .bashrc
+                  echo "export DB_ENDPOINT=$DB_ENDPOINT" >> /home/${VSCodeUser}/.bashrc
+                  echo "export DB_USERNAME=$DB_USERNAME" >> /home/${VSCodeUser}/.bashrc
+                  echo "export DB_PASSWORD=$DB_PASSWORD" >> /home/${VSCodeUser}/.bashrc
+                  echo "export DB_NAME=employees" >> /home/${VSCodeUser}/.bashrc
+                  echo "export PGPASSWORD=$DB_PASSWORD" >> /home/${VSCodeUser}/.bashrc
+                  echo "export DATABASE_URL=$CONNECTION_STRING" >> /home/${VSCodeUser}/.bashrc
+                  
+                  # Set ownership and source
+                  chown -R ${VSCodeUser}:${VSCodeUser} /home/${VSCodeUser}/.bashrc
+                  su - ${VSCodeUser} -c 'source ~/.bashrc'
+          - action: aws:runShellScript
             name: FullDatabaseSetup
             inputs:
               runCommand:
