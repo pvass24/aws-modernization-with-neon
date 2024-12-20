@@ -659,7 +659,7 @@ Resources:
                 - !Sub systemctl restart code-server@${VSCodeUser}
                 - systemctl restart nginx
                 - !Sub sudo -u ${VSCodeUser} --login code-server --install-extension AmazonWebServices.aws-toolkit-vscode --force
-                - !Sub sudo -u ${VSCodeUser} --login code-server --install-extension AmazonWebServices.amazon-q-vscode --force
+                #- !Sub sudo -u ${VSCodeUser} --login code-server --install-extension AmazonWebServices.amazon-q-vscode --force
                 - !Sub sudo -u ${VSCodeUser} --login code-server --install-extension synedra.auto-run-command --force
                 - !Sub sudo -u ${VSCodeUser} --login code-server --install-extension vscjava.vscode-java-pack --force
                 - !Sub sudo -u ${VSCodeUser} --login code-server --install-extension ms-vscode.live-server --force
