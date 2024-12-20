@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: RDS PostgreSQL instance in the default VPC with restricted access to default VPC CIDR
+Description: RDS PostgreSQL instance
 
 Parameters:
   DBUsername:
@@ -13,13 +13,25 @@ Parameters:
     Default: ilovene0n
 
 Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Database-VPC
+
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref DefaultVPC
-      CidrBlock: 172.31.16.0/20
-      AvailabilityZone: !Select [0, !GetAZs '']
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.3.0/24
       MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs ''
       Tags:
         - Key: Name
           Value: Private-Subnet-1
@@ -27,26 +39,41 @@ Resources:
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref DefaultVPC
-      CidrBlock: 172.31.32.0/20
-      AvailabilityZone: !Select [1, !GetAZs '']
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.4.0/24
       MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select 
+        - 1
+        - !GetAZs ''
       Tags:
         - Key: Name
           Value: Private-Subnet-2
 
-  RDSSecurityGroup:
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Main-IGW
+
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security group for RDS
-      VpcId: !Ref DefaultVPC
+      VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          CidrIp: 172.31.0.0/16  # Restrict access to the default VPC CIDR
+          CidrIp: 10.0.0.0/16
 
-  RDSSubnetGroup:
+  DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupDescription: Subnet group for RDS
@@ -65,11 +92,11 @@ Resources:
       MasterUsername: !Ref DBUsername
       MasterUserPassword: !Ref DBPassword
       VPCSecurityGroups:
-        - !Ref RDSSecurityGroup
-      DBSubnetGroupName: !Ref RDSSubnetGroup
+        - !Ref DBSecurityGroup
       PubliclyAccessible: false
+      BackupRetentionPeriod: 1
       MultiAZ: false
-      BackupRetentionPeriod: 7
+      DBSubnetGroupName: !Ref DBSubnetGroup
       Tags:
         - Key: Name
           Value: Employees-DB
