@@ -21,7 +21,7 @@ additionalLinks:
 # START Infrastructure
 infrastructure:
   cloudformationTemplates:
-    - templateLocation: static/infrastructure/neon-rds-cft.yaml
+    - templateLocation: static/infrastructure/neon-rds-template.yaml
       label: Neon Workshop Environment
       
     - templateLocation: static/infrastructure/vscode-server.yaml
