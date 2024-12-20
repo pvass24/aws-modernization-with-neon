@@ -1440,3 +1440,4 @@ Outputs:
       DB_ENDPOINT=${DBEndpoint}
       DB_USERNAME=${DBUsername}
       DB_PASSWORD=${DBPassword}
+      DATABASE_URL=${RDSConnectionString}
