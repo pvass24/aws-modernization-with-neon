@@ -119,7 +119,7 @@ Resources:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /rds/db-password
-      Type: SecureString
+      Type: String
       Value: !Ref DBPassword
   
   StoreConnectionStringParameter:
