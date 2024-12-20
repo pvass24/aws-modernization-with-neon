@@ -29,9 +29,9 @@ infrastructure:
       participantVisibleStackOutputs:
         - VSCODEURL
         - Password
-        - DB_USERNAME
-        - DB_PASSWORD
-        - DB_ENDPOINT
+        - DBUSERNAME
+        - DBPASSWORD
+        - DBENDPOINT
     
 
       #parameters:
