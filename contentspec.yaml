@@ -27,9 +27,11 @@ infrastructure:
     - templateLocation: static/infrastructure/vscode-server.yaml
       label: Neon Workshop Vscode Server
       participantVisibleStackOutputs:
-        - URL
+        - VSCODEURL
         - Password
-        - EnvironmentVariables
+        - DB_USERNAME
+        - DB_PASSWORD
+        - DB_ENDPOINT
     
 
       #parameters:
