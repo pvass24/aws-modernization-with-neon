@@ -23,15 +23,16 @@ infrastructure:
   cloudformationTemplates:
     - templateLocation: static/infrastructure/neon-rds-template.yaml
       label: Neon Workshop Environment
-      
+      participantVisibleStackOutputs:
+        - DBUsername
+        - DBPassword
+        - DBEndpoint
+        - ConnectionString
     - templateLocation: static/infrastructure/vscode-server.yaml
       label: Neon Workshop Vscode Server
       participantVisibleStackOutputs:
         - VSCODEURL
         - Password
-        - DBUSERNAME
-        - DBPASSWORD
-        - DBENDPOINT
     
 
       #parameters:
