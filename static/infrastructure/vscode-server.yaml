@@ -1088,7 +1088,15 @@ Resources:
                     wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz
           
                     echo "Decompressing dataset..."
-                    pg_restore -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
+                    pg_restore -O -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
+
+                    echo "Setting up schema access..."
+                    psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME << EOF
+                    -- Set search path for easier access
+                    ALTER DATABASE employees SET search_path TO employees, public;
+                    
+                    -- Set current session's search path
+                    SET search_path TO employees, public;
           
                     echo "Cleaning up..."
                     rm -f /tmp/employees.sql*
