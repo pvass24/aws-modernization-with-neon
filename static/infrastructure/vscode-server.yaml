@@ -1425,16 +1425,18 @@ Resources:
       Url: !Sub https://${CloudFrontDistribution.DomainName}/healthz
 
 Outputs:
-  URL:
+  VSCODEURL:
     Description: VSCode-Server URL
     Value: !Sub https://${CloudFrontDistribution.DomainName}/?folder=${HomeFolder}
   Password:
     Description: VSCode-Server Password
     Value: !GetAtt SecretPlaintext.password
-  EnvironmentVariables:
-    Description: The environment variables configured on the instance
-    Value: !Sub |
-      DB_ENDPOINT=${DBEndpoint}
-      DB_USERNAME=${DBUsername}
-      DB_PASSWORD=${DBPassword}
-      DATABASE_URL=${RDSConnectionString}
+  DB_ENDPOINT:
+    Description: RDS Database Endpoint
+    Value: ${DBEndpoint}
+  DB_USERNAME:
+    Description: RDS Database Username
+    Value: ${DBUsername}
+  DB_PASSWORD:
+    Description: RDS Database Password
+    Value: ${DBUsername}
