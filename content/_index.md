@@ -22,10 +22,10 @@ What you'll learn:
 
 Our step-by-step guide will walk you through each process, enabling you to:
 
-• Accelerate iteration cycles
-• Enhance team collaboration
-• Optimize resource utilization in development
-• Maintain consistency between development and production environments
+- Accelerate iteration cycles
+- Enhance team collaboration
+- Optimize resource utilization in development
+- Maintain consistency between development and production environments
 
 By the end of this workshop, you'll have the knowledge and tools to create a seamless workflow that combines the strengths of both RDS and Neon, elevating your PostgreSQL development experience.
 
