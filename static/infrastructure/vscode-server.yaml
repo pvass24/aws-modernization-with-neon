@@ -1072,70 +1072,44 @@ Resources:
               runCommand:
                 - '#!/bin/bash'
                 - !Sub |
+                    echo "Using environment variables for database setup..."
+                    
                     echo "Updating system packages..."
                     dnf update -y
-
+          
                     echo "Installing PostgreSQL and utilities..."
                     dnf install -y postgresql15.aarch64 postgresql15-server postgresql15-contrib wget gzip tmux htop jq
-
-                    echo "Fetching RDS details from SSM Parameter Store..."
-                    DB_ENDPOINT=$(aws ssm get-parameter --name /rds/db-endpoint --query 'Parameter.Value' --output text)
-                    DB_USERNAME=$(aws ssm get-parameter --name /rds/db-username --query 'Parameter.Value' --output text)
-                    DB_PASSWORD=$(aws ssm get-parameter --name /rds/db-password --query 'Parameter.Value' --output text)
-                    CONNECTION_STRING=$(aws ssm get-parameter --name /rds/connection-string --query 'Parameter.Value' --output text)
-
-                    echo "Configuring environment variables..."
-                    cat > /etc/environment << EOF
-                    DB_ENDPOINT=$DB_ENDPOINT
-                    DB_USERNAME=$DB_USERNAME
-                    DB_PASSWORD=$DB_PASSWORD
-                    DB_NAME=employees
-                    PGPASSWORD=$DB_PASSWORD
-                    DATABASE_URL=$CONNECTION_STRING
-                    EOF
-
-                    chmod 644 /etc/environment
-                    source /etc/environment
-
+          
                     echo "Creating database setup script..."
                     cat > /usr/local/bin/setup_db.sh << 'SETUP_DB_EOF'
                     #!/bin/bash
-
-                    # Source environment variables
-                    set -a
-                    source /etc/environment
-                    set +a
-
+          
                     echo "Downloading employee dataset..."
                     wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz
-
+          
                     echo "Decompressing dataset..."
                     pg_restore -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
-
+          
                     echo "Cleaning up..."
                     rm -f /tmp/employees.sql*
-
+          
                     echo "Setup complete!"
                     SETUP_DB_EOF
-
+          
                     chmod 755 /usr/local/bin/setup_db.sh
-
+          
                     echo "Creating aliases for database commands..."
                     cat > /etc/profile.d/00-aliases.sh << 'ALIASES_EOF'
                     alias psql-db='psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME'
                     alias check-data='psql-db -c "SELECT COUNT(*) FROM employees;"'
                     ALIASES_EOF
-
+          
                     chmod 644 /etc/profile.d/00-aliases.sh
                     source /etc/profile.d/00-aliases.sh
-
+          
                     echo "Running setup script..."
                     /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
-
-                    echo "Database setup completed."
-                    echo "Running setup script..."
-                    /usr/local/bin/setup_db.sh > /var/log/db-setup.log 2>&1
-
+          
                     echo "Database setup completed."
 
 
