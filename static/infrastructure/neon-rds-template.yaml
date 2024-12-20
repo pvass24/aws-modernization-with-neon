@@ -13,15 +13,75 @@ Parameters:
     Default: ilovene0n
 
 Resources:
-  # Get default VPC
-  DefaultVPC:
-    Type: AWS::EC2::VPC
+  # Default VPC Lookup Lambda
+  DefaultVPCLookupLambda:
+    Type: AWS::Lambda::Function
     Properties:
-      Tags:
-        - Key: Name
-          Value: Default VPC
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+      Handler: index.lambda_handler
+      Role: !GetAtt DefaultVPCLookupLambdaRole.Arn
+      Code:
+        ZipFile: |
+          import boto3
+          import cfnresponse
+          
+          def lambda_handler(event, context):
+              if event['RequestType'] in ['Create', 'Update']:
+                  try:
+                      ec2 = boto3.client('ec2')
+                      
+                      # Get default VPC
+                      response = ec2.describe_vpcs(
+                          Filters=[{'Name': 'isDefault', 'Values': ['true']}]
+                      )
+                      
+                      if not response['Vpcs']:
+                          cfnresponse.send(event, context, cfnresponse.FAILED, 
+                                         {'Error': 'No default VPC found'})
+                          return
+                          
+                      vpc_id = response['Vpcs'][0]['VpcId']
+                      vpc_cidr = response['Vpcs'][0]['CidrBlock']
+                      
+                      cfnresponse.send(event, context, cfnresponse.SUCCESS, 
+                                     {'VpcId': vpc_id, 'CidrBlock': vpc_cidr})
+                  except Exception as e:
+                      cfnresponse.send(event, context, cfnresponse.FAILED, 
+                                     {'Error': str(e)})
+              else:
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+      Runtime: python3.9
+      Timeout: 30
+      Architectures:
+        - arm64
+
+  DefaultVPCLookupLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DescribeVPCs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - ec2:DescribeVpcs
+                  - ec2:DescribeSubnets
+                Resource: '*'
+
+  # Default VPC Lookup
+  DefaultVPCLookup:
+    Type: Custom::DefaultVPCLookup
+    Properties:
+      ServiceToken: !GetAtt DefaultVPCLookupLambda.Arn
 
   # Lambda to find default VPC subnets
   DefaultVPCSubnetsLambda:
@@ -59,7 +119,6 @@ Resources:
       Architectures:
         - arm64
 
-  # IAM role for the Lambda
   DefaultVPCSubnetsLambdaRole:
     Type: AWS::IAM::Role
     Properties:
@@ -82,23 +141,22 @@ Resources:
                   - ec2:DescribeSubnets
                 Resource: '*'
 
-  # Get default VPC subnets
   DefaultVPCSubnets:
     Type: Custom::DefaultVPCSubnets
     Properties:
       ServiceToken: !GetAtt DefaultVPCSubnetsLambda.Arn
-      VpcId: !Ref DefaultVPC
+      VpcId: !GetAtt DefaultVPCLookup.VpcId
 
   DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security group for RDS
-      VpcId: !Ref DefaultVPC
+      VpcId: !GetAtt DefaultVPCLookup.VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          CidrIp: !GetAtt DefaultVPC.CidrBlock
+          CidrIp: !GetAtt DefaultVPCLookup.CidrBlock
 
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
