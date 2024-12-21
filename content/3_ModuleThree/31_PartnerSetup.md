@@ -1,7 +1,7 @@
 ---
 title: "Partner Setup Instructions" # MODIFY THIS TITLE
 chapter: true
-weight: 2 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
+weight: 31 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 ---
 
 # Partner Setup Instructions <!-- MODIFY THIS HEADING -->

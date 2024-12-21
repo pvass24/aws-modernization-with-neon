@@ -1,7 +1,7 @@
 ---
 title: "Start the Workshop..."
 chapter: true
-weight: 3
+weight: 13
 ---
 
 # Getting Started
