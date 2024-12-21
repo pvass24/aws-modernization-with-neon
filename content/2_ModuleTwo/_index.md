@@ -1,7 +1,7 @@
 ---
 title: " Set Up Instructions " # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
-weight: 2
+weight: 1
 ---
 
 !-- MODIFY THIS HEADING -->
