@@ -1,76 +1,190 @@
 ---
-title: "Co-hosted Workshop Prerequisites" # MODIFY THIS TITLE IF APPLICABLE
+title: "Co-hosted Workshop Prerequisites"
 chapter: true
-weight: 14 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
+weight: 14
 ---
 
-# Co-hosted Workshop Prerequisites <!-- MODIFY THIS HEADING IF APPLICABLE -->
+# 🖈️ Accessing and Managing Your RDS Database  
 
-## AWS Prerequisites <!-- MODIFY THIS SUBHEADING -->
-- ### AWS account (Provided by AWS for this workshop if you do not have a staging RDS database)
-[AWS DIRECTIONS HERE - Patrick/Kruthi]  
-- ### RDS connection string (Provided by AWS for this workshop)
-[AWS DIRECTIONS HERE - Patrick/Kruthi]
-- ### AWS deployment region (us-west-2)
-[AWS DIRECTIONS HERE - Patrick/Kruthi]
+This guide will walk you through accessing your PostgreSQL database, getting the connection details needed for the Neon setup, and seeding the database with sample data.  
 
+---
 
-## Neon Prerequisites <!-- MODIFY THIS SUBHEADING -->
+## 🔑 Getting Your Database Connection Details  
 
-### 1. A Neon account
-**Directions for creating a Neon account** 
+Before connecting to the database, you'll need to get your connection details. These are stored as environment variables.  
 
+💡 **Pro Tip**: Copy these values somewhere safe - you'll need them later!  
 
-If you’re new to Neon, the first step is to [sign up](https://console.neon.tech/signup) and create your initial project in Neon using the steps detailed in the section below.
+1. Open a new terminal in **VSCode Server**.  
 
+2. Run these commands to view your connection details in your VSCode Terminal:  
 
-### 2. A Neon database 
+```bash
+echo $DB_ENDPOINT     # Shows your database endpoint  
+echo $DB_USERNAME     # Shows your database username  
+echo $DB_PASSWORD     # Shows your database password  
+echo $DB_NAME         # Shows your database name  
+echo $DATABASE_URL    # Shows the full connection string  
+```
 
-**Creating a Neon database** 
+   ![Screenshot of Environment Variable Output](/images/environment-variables-output.png)  
 
+---
 
+## 🔄 Seeding the Database  
 
-**Make sure your Neon database is deployed to the same AWS region as your RDS database (us-west-2).**
+Once you have confirmed your database connection details, follow these steps to seed the database with sample data:  
 
+1. Download the employee dataset:  
 
-After you have signed up for a Neon account, follow our [getting started guide](https://neon.tech/docs/get-started-with-neon/signing-up) to create your initial project, you will be introduced to these key Neon terms:
+```bash
+echo "Downloading employee dataset..."  
+wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz  
+```
 
-![Neon Object Hierarchy](/images/Neondatabasedr.png)
+   ![Screenshot of Downloading Dataset](/images/download-dataset.png)  
 
+2. Decompress and load the dataset into the database:  
 
-- **Project:** The top-level container for your Neon databases—the logical equivalent to an “instance” in RDS.
-- **Branch:** A versioned copy of your database environment. Each Neon project can have multiple branches, as we will see later.
-- **Database:** The actual database instance where your data resides. In Neon, databases live inside branches.
+```bash
+echo "Decompressing dataset..."  
+pg_restore -O -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz  
+```
 
+   ![Screenshot of Dataset Decompression](/images/decompress-dataset.png)  
 
-Neon is built on an innovative [branch-based architecture](https://neon.tech/blog/architecture-decisions-in-neon):
+3. Set up schema access for easier database usage:  
 
-- The **main branch** will be your **primary development branch**, where you’ll load the data from your RDS database every night.
-- Once everything is set up, you’ll be able to create additional branches from the main branch to [duplicate your development environment in a second](https://neon.tech/blog/how-to-copy-large-postgres-databases-in-seconds), without additional storage costs, as many times as you need.
-- Every engineer on your team can have their own dev branch, facilitating parallel development without adding overheads in database management or costs.
+```sql
+echo "Setting up schema access..."  
+psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME
+```
 
-  
-🚨 Once you’ve set up your Neon account and your project, **create a database in the main branch, and make a note of the connection string.** You will need this in the next steps.
+Set search path for easier access  
+```sql
+ALTER DATABASE employees SET search_path TO employees, public;  
+```
 
+   ![Screenshot of Schema Setup](/images/schema-setup.png)  
 
-#### Select Your Project -> Connection Details -> Connection String
+4. Enter the following command while connected to the database to set the current session's search path:  
 
-- On the dashboard, you will see a list of your projects.
-- Click on the project for which you want to find the connection string. 
-- In the left-hand menu, locate and click on "Connection Details" or "Connect" (this may vary slightly depending on the Neon Console's version).
-- In the Connection Details section, you will see the connection string displayed. Your connection string will be customized with your Neon credentials. Copy the connections string based on the frameworks you are using.
+```sql
+-- Set current session's search path  
+SET search_path TO employees, public;  
+```
 
--  View or Generate a Password 
+   ![Screenshot of Search Path Command](/images/search-path.png)  
 
- -  If you need a password, look for a button to "Reveal Password" or "Reset Password" in the Connection Details section. Follow the prompts to view or reset it as needed.
+---
 
+## 🔌 Connecting to the Database  
 
-### 3. GitHub repository access to Actions and Secrets 
+We've set up some handy aliases to make connecting easier!  
 
-First you will need to **make sure you have a GitHub Account**, if you do not have one already, you can sign up for one [here.](https://github.com/signup) 
+- Use the `psql-db` command to connect directly to the database:  
 
+```bash
+psql-db  
+```
 
- **Create a GitHub repository** if you don't have one already, as this will store the automation scripts and workflows for the synchronization. 
+   ![Screenshot of psql-db Command](/images/psql-db-command.png)  
 
+---
 
-- **Add necessary secrets** to GitHub Secrets: You’ll need the connection URLs for both your RDS production database and your Neon database (these can be added to GitHub Secrets under `PROD_DATABASE_URL` and `DEV_DATABASE_URL`).  Directions on how to add secrets to GitHub can be found [here.](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions?tool=webui)
+## 🔍 Exploring the Database  
+
+Once the dataset is loaded, you can explore it using these commands:  
+
+- List all tables:  
+
+```sql
+\dt
+```
+
+   ![Screenshot of List Tables Output](/images/list-tables-output.png)  
+
+- View detailed table information for the `employee` table:  
+
+```sql
+\d+ employee  
+```
+
+   ![Screenshot of Table Information](/images/table-info.png)  
+
+- Run a sample query:  
+
+```sql
+SELECT COUNT(*) FROM employee;  
+```
+
+   ![Screenshot of Sample Query Output](/images/sample-query-output.png)  
+
+---
+
+## 🔎 Verifying the Database  
+
+To ensure the data was seeded successfully, use the `check-data` command:  
+
+```bash
+check-data  
+```
+
+   ![Screenshot of check-data Command](/images/check-data-command.png)  
+
+This command verifies that the dataset was loaded correctly.  
+
+---
+
+## 🌟 Getting Ready for Neon Setup  
+
+For the upcoming Neon setup section, you'll need your database connection string. Get it by running:  
+
+```bash
+echo $DATABASE_URL  
+```
+
+This will give you something like:  
+
+```plaintext
+postgresql://username:password@endpoint:5432/employees  
+```
+
+⚠️ **Important**: Save this connection string somewhere safe - you'll need it for the Neon configuration!  
+
+---
+
+## 🔧 Troubleshooting  
+
+Can't see your environment variables? Try these steps:  
+
+1. Close and reopen your terminal.  
+
+   ![Screenshot of Reopened Terminal](/images/reopened-terminal.png)  
+
+2. Check if the variables are in `/etc/environment`:  
+
+```bash
+cat /etc/environment  
+```
+
+3. Source the environment file:  
+
+```bash
+source /etc/environment  
+```
+
+🛑 **Database Issues**: If you're having trouble connecting to the database or the `employees` data isn't loading properly, run:  
+
+```bash
+sudo /usr/local/bin/setup_db.sh  
+```
+
+This script will reload the sample database and set up all necessary configurations.  
+
+⚠️ **Security Note**: Keep your database credentials secure and never share them with others!  
+
+---
+
+🎯 **Next Steps**: Once you have your connection details and the database is seeded, proceed to the Neon setup section.
