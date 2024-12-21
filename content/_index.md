@@ -6,7 +6,7 @@ weight: 1
 
 # Branching Out: Improving RDS-Based Development with Neon + AWS 
 
-![Neon Logo](/static/images/neon-logo.png)
+![Neon Logo](/images/neon-logo.png)
 
 ## Welcome
 

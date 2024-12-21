@@ -12,8 +12,8 @@ Your account must have the ability to have Administrative Access
 
 To set up the required resources for this workshop, you will need to deploy two CloudFormation templates:  
 
-1. [neon-rds-template.yaml](https://github.com/aws-samples/aws-modernization-with-neon/blob/main/static/infrastructure/neon-rds-template.yaml)
-2. [vscode-server.yaml](https://github.com/aws-samples/aws-modernization-with-neon/blob/main/static/infrastructure/vscode-server.yaml)
+1. [neon-rds-template.yaml](https://github.com/aws-samples/aws-modernization-with-neon/blob/main/infrastructure/neon-rds-template.yaml)
+2. [vscode-server.yaml](https://github.com/aws-samples/aws-modernization-with-neon/blob/main/infrastructure/vscode-server.yaml)
 
 ---
 

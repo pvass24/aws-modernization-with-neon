@@ -33,12 +33,12 @@ The following links are your go-to resource for markdown and shortcode reference
 
 
 ### Adding Images and Static Media 
-Any images and static media to be included in the workshop need to be placed in the `static/images` folder. The format to display an image is as follows: `![Alternate Text](/static/images/imagename.jpg)` 
+Any images and static media to be included in the workshop need to be placed in the `static/images` folder. The format to display an image is as follows: `![Alternate Text](/images/imagename.jpg)` 
 
 
-For example, the markdown for this dog is `![An adorable puppy](/static/images/dog.jpg)` and the image is in the `static/images` folder. 
+For example, the markdown for this dog is `![An adorable puppy](/images/dog.jpg)` and the image is in the `static/images` folder. 
 
-![An adorable puppy](/static/images/dog.jpg)
+![An adorable puppy](/images/dog.jpg)
 
 ### Creating Links
 The format for creating links is `[Link Display Text](http://example.com)`. For example, this link [Hugo Framework](https://gohugo.io/about/what-is-hugo/) was created using `[Hugo Framework](https://gohugo.io/about/what-is-hugo/)`.
