@@ -15,11 +15,11 @@ weight: 10
 - Leverage Neon's branching feature to create isolated environments for parallel development without extra storage costs.
 - Utilize features like Neon's scale-to-zero functionality to reduce costs while improving team collaboration and iteration speed.
 
-## Does this workshop cost anything? 
+### Does this workshop cost anything? 
 
 Neon is currently free to use. There are different pricing plans for different use cases. However, for this workshop, we will be using the free plan. If for any reason you need to upgrade your plan, you can do so by clicking on the "Upgrade" button in the top right corner of the Neon dashboard. We can also provide you with a coupon code if you think you will need to upgrade your plan.
 
-## Workshop Structure
+### Workshop Structure
 
 - **Prerequisites** (~30 minutes)
 - **Module 1: Addressing RDS Development Challenges and Unlocking Neon's Potential** (~30 minutes)

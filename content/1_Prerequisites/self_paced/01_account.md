@@ -1,7 +1,7 @@
 ---
 title: "Setting up your Workshop Resources"
 chapter: false
-weight: 1
+weight: 17
 ---
 
 {{% notice warning %}}

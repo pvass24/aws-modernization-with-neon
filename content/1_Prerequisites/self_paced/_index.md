@@ -1,7 +1,7 @@
 ---
 title: "...on your own"
 chapter: true
-weight: 05
+weight: 16
 ---
 
 ### Running the workshop on your own

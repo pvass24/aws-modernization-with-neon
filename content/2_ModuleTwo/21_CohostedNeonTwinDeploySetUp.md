@@ -7,7 +7,7 @@ weight: 21 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 <!-- MORE SUBMODULES CAN BE ADDED TO DIVIDE UP THE SETUP INTO SMALLER SECTIONS -->
 <!-- COPY AND PASTE THIS SUBMODULE FILE, RENAME, AND CHANGE THE CONTENTS AS NECESSARY -->
 
-# Setting up your environment for a Neon Twin Deploy Workshop <!-- MODIFY THIS HEADING -->
+# Setting up your environment for a Neon Twin Deploy Workshop
 
 If you're already running RDS in production, migrating a live database can be a real challenge. The good news is, you don’t have to move everything over to enjoy Neon's advantages in development speed and cost efficiency for non-production databases.
 
@@ -15,10 +15,10 @@ If you're already running RDS in production, migrating a live database can be a 
 
 With a Neon Twin—a synchronized copy of your RDS data in Neon—there’s a simple, automated way to keep your development environment up-to-date. This copy updates automatically each night using ```pg_dump/restore ``` and ```GitHub Actions```, so your development data stays fresh without any heavy lifting.
 
+## Create a Neon Twin in your GitHub Actions workflow
 
+### 1. Create a workflow YAML file
 
-## Create a Neon Twin in your GitHub Actions workflow:
-### 1. Create a workflow YAML file: 
 Add a new workflow file in your GitHub repository at ```.github/workflows/create-neon-twin.yml.``` This file will define how the synchronization happens. 
 
 
@@ -84,11 +84,9 @@ jobs:
 
 > **Note**: Environment variables mentioned above must be configured in your GitHub repository's secrets for the Action to work properly.
 
-
-
 ### 2. Configuring secrets in GitHub Actions
 
-In the workshop prerequisites module you will have created a GitHub repository and added secrets to the repository. 
+In the workshop prerequisites module you will have created a GitHub repository and added secrets to the repository.
 
 - In your GitHub Actions workflow (e.g., in `.github/workflows/create-neon-twin.yml`), reference these secrets like this:
     
@@ -101,6 +99,3 @@ In the workshop prerequisites module you will have created a GitHub repository a
     
     ```
 This syntax ensures that the sensitive values, such as database credentials or API keys, are securely injected into your workflow at runtime without hardcoding them into the file.
-
-
-

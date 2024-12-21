@@ -1,7 +1,7 @@
 ---
 title: "VSCode Server Setup"
 chapter: true
-weight: 11
+weight: 18
 ---
 
 # Accessing the VS Code Server
