@@ -1,10 +1,10 @@
 ---
-title: "Co-hosted Workshop Prerequisites"
+title: "Connecting to your RDS Database"
 chapter: true
 weight: 14
 ---
 
-# 🖈️ Accessing and Managing Your RDS Database  
+# Accessing and Managing Your RDS Database  
 
 This guide will walk you through accessing your PostgreSQL database, getting the connection details needed for the Neon setup, and seeding the database with sample data.  
 
@@ -97,18 +97,19 @@ psql-db
 
 Once the dataset is loaded, you can explore it using these commands:  
 
-- List all tables:  
+- List all Schemas and tables:  
 
 ```sql
-\dt
+\d
 ```
 
-   ![Screenshot of List Tables Output](/images/list-tables-output.png)  
+   ![Screenshot of List Tables Output](/images/list-tables-output.png)
+**Note**: You may have to exit (Enter: quit) and reenter the Database if no relations are found initially.
 
 - View detailed table information for the `employee` table:  
 
 ```sql
-\d+ employee  
+\d+ employee
 ```
 
    ![Screenshot of Table Information](/images/table-info.png)  
@@ -116,24 +117,10 @@ Once the dataset is loaded, you can explore it using these commands:
 - Run a sample query:  
 
 ```sql
-SELECT COUNT(*) FROM employee;  
+SELECT COUNT(*) FROM department;
 ```
 
    ![Screenshot of Sample Query Output](/images/sample-query-output.png)  
-
----
-
-## 🔎 Verifying the Database  
-
-To ensure the data was seeded successfully, use the `check-data` command:  
-
-```bash
-check-data  
-```
-
-   ![Screenshot of check-data Command](/images/check-data-command.png)  
-
-This command verifies that the dataset was loaded correctly.  
 
 ---
 
@@ -161,7 +148,6 @@ Can't see your environment variables? Try these steps:
 
 1. Close and reopen your terminal.  
 
-   ![Screenshot of Reopened Terminal](/images/reopened-terminal.png)  
 
 2. Check if the variables are in `/etc/environment`:  
 

@@ -1109,7 +1109,7 @@ Resources:
                     echo "Creating aliases for database commands..."
                     cat > /etc/profile.d/00-aliases.sh << 'ALIASES_EOF'
                     alias psql-db='psql -h $DB_ENDPOINT -U $DB_USERNAME -d $DB_NAME'
-                    alias check-data='psql-db -c "SELECT COUNT(*) FROM employees;"'
+                    alias check-data='psql-db -c "SELECT COUNT(*) FROM employee;"'
                     ALIASES_EOF
           
                     chmod 644 /etc/profile.d/00-aliases.sh
