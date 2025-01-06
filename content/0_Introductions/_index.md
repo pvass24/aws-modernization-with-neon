@@ -8,6 +8,8 @@ weight: 10
 
 ## Learning Objectives
 
+In this workshop, you will:
+
 - Identify challenges with AWS RDS in development workflows, such as slow provisioning, collaboration difficulties, and data synchronization issues.
 - Learn about Neon's capabilities like database branching, instant environment provisioning, CI/CD integration, and autoscaling to enhance development and testing workflows.
 - Configure Neon as a dev-friendly alternative to RDS, enabling efficient workflows without disrupting production databases.
@@ -15,11 +17,11 @@ weight: 10
 - Leverage Neon's branching feature to create isolated environments for parallel development without extra storage costs.
 - Utilize features like Neon's scale-to-zero functionality to reduce costs while improving team collaboration and iteration speed.
 
-### Does this workshop cost anything? 
+## Does this workshop cost anything? 
 
 Neon is currently free to use. There are different pricing plans for different use cases. However, for this workshop, we will be using the free plan. If for any reason you need to upgrade your plan, you can do so by clicking on the "Upgrade" button in the top right corner of the Neon dashboard. We can also provide you with a coupon code if you think you will need to upgrade your plan.
 
-### Workshop Structure
+## Workshop Structure
 
 - **Prerequisites** (~30 minutes)
 - **Module 1: Addressing RDS Development Challenges and Unlocking Neon's Potential** (~30 minutes)
@@ -34,6 +36,4 @@ Neon is currently free to use. There are different pricing plans for different u
   - Automate nightly synchronization using `pg_dump`, `pg_restore`, and GitHub Actions.
   - Set up GitHub workflows to keep development environments up-to-date.
 
-
 **Note:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e., `1_Planning` as the folder and `11_HowToBegin` as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
-
