@@ -35,5 +35,3 @@ Neon is currently free to use. There are different pricing plans for different u
   - Learn how to create a "Neon Twin," a synchronized copy of your RDS database.
   - Automate nightly synchronization using `pg_dump`, `pg_restore`, and GitHub Actions.
   - Set up GitHub workflows to keep development environments up-to-date.
-
-**Note:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e., `1_Planning` as the folder and `11_HowToBegin` as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
