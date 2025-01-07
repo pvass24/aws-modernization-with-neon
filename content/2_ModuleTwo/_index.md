@@ -5,21 +5,19 @@ weight: 20
 ---
 
 !-- MODIFY THIS HEADING -->
-# Overcoming Bottlenecks & Enhancing Dev/Test Workflows with Neon 
-AWS RDS for PostgreSQL is a solid, established solution that has been instrumental in bringing Postgres into modern workplaces. While Neon can handle mission-critical workloads, its real strength lies in optimizing the developer workflow so your developers can build faster and optimize costs.
+# Enhancing Dev/Test Workflows with Neon 
+Amazon RDS for PostgreSQL is a solid, established solution that has been instrumental in bringing Postgres into modern workplaces. While Neon can handle mission-critical workloads, its real strength lies in optimizing the developer workflow so your developers can build faster and optimize costs. In this section, we will see how Neon complements Amazon RDS to enhance Dev/Test Workflows.
 
-## RDS in Development: Overview of AWS RDS Bottlenecks 
+##  How Neon Complements Amazon RDS for Development <!-- MODIFY THIS SUBHEADING -->
 
-| Bottlenecks | Module Objective |
+| Advantages with Neon | Module Objective |
 |-------------|-----------------|
-| Slow Provisioning and Configuration Complexity | Understanding the time and effort required to set up and configure RDS instances for development purposes. |
-| Collaboration Challenges with Shared RDS Instances | Exploring the difficulties teams face when collaborating on a single shared RDS instance in development environments. |
-| Data Synchronization Issues Across Environments | Identifying problems related to keeping data in sync between production and development environments. |
-| Scaling Complexity | Recognizing the growing complexity involved in scaling multiple RDS instances, especially for development and testing purposes. |
+| Faster Provisioning of resources with Neon | Understanding the time and effort required to set up and configure RDS vs Neon instances for development purposes. |
+| Improve collaboration with Neon | Exploring the ease with which teams can collaborate in development environments using Neon. |
+| Improve Data Synchronization Across Environments | Identifying problems related to keeping data in sync between production and development environments and walkthrough of how Neon is addressing these challenges. |
+| Ease of Scaling | Easily scale instances for development and testing purposes. |
 
-##  Why Neon is the Ideal Complement to RDS for Development <!-- MODIFY THIS SUBHEADING -->
-
-[WORKTOGETHER WITH NEON AND AWS TEAM KRUTHI/PATRICK TO FILL IN THE CONTENT FOR THIS SECTION]
+[MODIFIED - SAVANNAH TO VERIFY THIS SECTION]
 
 ## Enhancing Development Workflows with Neon
 

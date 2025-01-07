@@ -9,7 +9,7 @@ weight: 21 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 
 # Setting up your environment for a Neon Twin Deploy Workshop
 
-If you're already running RDS in production, migrating a live database can be a real challenge. The good news is, you don’t have to move everything over to enjoy Neon's advantages in development speed and cost efficiency for non-production databases.
+If you're already running RDS in production, migrating a live database can be a challenge. The good news is, you don’t have to move everything over to enjoy Neon's advantages in development speed and cost efficiency for non-production databases.
 
 ![Neon Twin](/images/neontwin.jpg)
 

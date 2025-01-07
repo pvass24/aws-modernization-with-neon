@@ -10,7 +10,7 @@ weight: 10
 
 In this workshop, you will:
 
-- Identify challenges with AWS RDS in development workflows, such as slow provisioning, collaboration difficulties, and data synchronization issues.
+- Learn how Neon can complement Amazon RDS in development workflows by enhancing speed to provision resources, collaborate easily, and address data synchronization challenges.
 - Learn about Neon's capabilities like database branching, instant environment provisioning, CI/CD integration, and autoscaling to enhance development and testing workflows.
 - Configure Neon as a dev-friendly alternative to RDS, enabling efficient workflows without disrupting production databases.
 - Automate data transfer between RDS and Neon (use tools like `pg_dump` and `GitHub Actions` to synchronize data from RDS to Neon effectively).
@@ -24,8 +24,8 @@ Neon is currently free to use. There are different pricing plans for different u
 ## Workshop Structure
 
 - **Prerequisites** (~30 minutes)
-- **Module 1: Addressing RDS Development Challenges and Unlocking Neon's Potential** (~30 minutes)
-  - Part 1: Understanding RDS Development Pain Points
+- **Module 1: Unlocking Neon's Potential for Development Workflows** (~30 minutes)
+  - Part 1: Understanding how Neon can complement Amazon RDS for Development Workflows
   - Part 2: Enhancing Development Workflows with Neon
   - Part 3: Setting Up Your First Neon Project
 - **Module 2: Set Up Environment for Neon Twin Deploy Workflow** (~30 minutes)

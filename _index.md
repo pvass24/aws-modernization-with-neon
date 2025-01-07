@@ -11,7 +11,7 @@ weight: 1
 
 ## Welcome
 
-In this 60-minute workshop, we’ll show you how to boost your development speed by integrating Neon into your existing AWS RDS Postgres setup. While RDS remains a trusted choice for production, it falls short in development experience. Neon, a serverless PostgreSQL solution with powerful database branching, offers a dev-friendly alternative for hosting your development and testing environments, so you improve your workflows and team collaboration without the need for disruptive production migrations. 
+In this 60-minute workshop, we’ll show you how to boost your development speed by integrating Neon into your existing Amazon Relational Database Service (Amazon RDS) Postgres setup. While RDS remains a trusted choice for production, it falls short in development experience. Neon, a serverless PostgreSQL solution with powerful database branching, offers a dev-friendly alternative for hosting your development and testing environments, so you improve your workflows and team collaboration without the need for disruptive production migrations. 
 
 
 
