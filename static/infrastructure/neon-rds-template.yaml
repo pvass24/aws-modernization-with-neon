@@ -169,7 +169,7 @@ Resources:
     Properties:
       DBName: employees
       Engine: postgres
-      EngineVersion: 14.9
+      EngineVersion: 16.3-R3
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
       MasterUsername: !Ref DBUsername
