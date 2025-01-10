@@ -83,19 +83,3 @@ jobs:
 | | `-d` | Specifies target database using DEV_DATABASE_URL |
 
 > **Note**: Environment variables mentioned above must be configured in your GitHub repository's secrets for the Action to work properly.
-
-### 2. Configuring secrets in GitHub Actions
-
-In the workshop prerequisites module you will have created a GitHub repository and added secrets to the repository.
-
-- In your GitHub Actions workflow (e.g., in `.github/workflows/create-neon-twin.yml`), reference these secrets like this:
-    
-    ```yaml
-    yaml
-    Copy code
-    env:
-      PROD_DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-      DEV_DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
-    
-    ```
-This syntax ensures that the sensitive values, such as database credentials or API keys, are securely injected into your workflow at runtime without hardcoding them into the file.

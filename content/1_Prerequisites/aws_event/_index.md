@@ -1,7 +1,7 @@
 ---
 title: "...at an AWS event"
 chapter: true
-weight: 14
+weight: 12
 ---
 
 # Attending an AWS hosted event
@@ -33,4 +33,4 @@ This account will expire at the end of the workshop and  all the resources creat
 
 ### Next step
 
-Once you have completed the step above, you can leave the AWS console open. You can now move to the [next step](/10_prerequisites/aws_event/11_cloud9-setup.html) and begin to access of your VsCode environment.
+Once you have completed the step above, you can leave the AWS console open. You can now move to the next step and begin to access your VS Code environment.
