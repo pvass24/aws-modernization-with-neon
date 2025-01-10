@@ -1,3 +1,9 @@
+---
+title: "Introduction"
+chapter: true
+weight: 1
+---
+
 # Intro
 
 ![Neon Logo](/images/neon-logo.png)
