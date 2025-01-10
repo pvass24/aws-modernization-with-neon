@@ -1,10 +1,10 @@
 ---
-title: "Introduction"
+title: "Agenda"
 chapter: true
 weight: 10
 ---
 
-# Introduction
+# Agenda
 
 ## Learning Objectives
 
