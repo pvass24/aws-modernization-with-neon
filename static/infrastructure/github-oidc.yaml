@@ -107,7 +107,7 @@ Resources:
                   - rds:ListTagsForResource
                   - rds:*
                 Resource:
-                  - !Sub "arn:aws:rds:${AWS::Region}:${AWS::AccountId}:db:neon-rds-template-rdsinstance-*"
+                  - !Sub "arn:aws:rds:${AWS::Region}:${AWS::AccountId}:db:neon-*"
 
               - Sid: SSMParameterAccess
                 Effect: Allow

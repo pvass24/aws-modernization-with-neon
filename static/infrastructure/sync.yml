@@ -1,0 +1,49 @@
+name: Create Neon Twin
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows manual trigger
+
+env:
+  PROD_DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }} # RDS connection string
+  DEV_DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }} # Neon connection string
+  PG_VERSION: '16'
+
+jobs:
+  dump-and-restore:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt update
+          yes '' | sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+          sudo apt install -y postgresql-client-${{ env.PG_VERSION }}
+
+      - name: Verify PostgreSQL Client Installation
+        run: |
+          pg_dump --version
+          pg_restore --version
+
+      - name: Dump from RDS
+        env:
+          PROD_DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+        run: |
+          echo "Dumping data from RDS to file..."
+          /usr/lib/postgresql/${{ env.PG_VERSION }}/bin/pg_dump "${PROD_DATABASE_URL}" -Fc -f "${{ github.workspace }}/prod-dump-file.dump"
+
+      - name: Restore to Neon
+        env:
+          DEV_DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
+        run: |
+          echo "Restoring data to Neon..."
+          /usr/lib/postgresql/${{ env.PG_VERSION }}/bin/pg_restore -d "${DEV_DATABASE_URL}" --clean --no-owner --no-acl --if-exists "${{ github.workspace }}/prod-dump-file.dump"
+
+      - name: Cleanup
+        run: |
+          echo "Cleaning up dump file..."
+          rm -f "${{ github.workspace }}/prod-dump-file.dump"
