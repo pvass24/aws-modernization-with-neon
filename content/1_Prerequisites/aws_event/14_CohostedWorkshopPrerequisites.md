@@ -36,16 +36,7 @@ echo $DATABASE_URL    # Shows the full connection string
 
 Once you have confirmed your database connection details, follow these steps to seed the database with sample data:  
 
-1. Download the employee dataset:  
-
-```bash
-echo "Downloading employee dataset..."  
-wget https://raw.githubusercontent.com/neondatabase/postgres-sample-dbs/main/employees.sql.gz -O /tmp/employees.sql.gz  
-```
-
-![Screenshot of Downloading Dataset](/images/download-dataset.png)  
-
-2. Decompress and load the dataset into the database:  
+1. Decompress and load the dataset into the database:  
 
 ```bash
 echo "Decompressing dataset..."  
@@ -54,7 +45,7 @@ pg_restore -O -U $DB_USERNAME -d $DB_NAME -h $DB_ENDPOINT /tmp/employees.sql.gz
 
 ![Screenshot of Dataset Decompression](/images/decompress-dataset.png)  
 
-3. Set up schema access for easier database usage:  
+2. Set up schema access for easier database usage:  
 
 ```sql
 echo "Setting up schema access..."  
@@ -68,11 +59,17 @@ ALTER DATABASE employees SET search_path TO employees, public;
 
 ![Screenshot of Schema Setup](/images/schema-setup.png)  
 
-4. Enter the following command while connected to the database to set the current session's search path:  
+3. Enter the following command while connected to the database to set the current session's search path:  
 
 ```sql
 -- Set current session's search path  
 SET search_path TO employees, public;  
+```
+
+Note: To exit the database enter command below:
+
+```sql
+\q
 ```
 
 ---
@@ -97,12 +94,12 @@ Once the dataset is loaded, you can explore it using these commands:
 
 - List all Schemas and tables:  
 
-```sql
+```bash
 \d
 ```
 
 ![Screenshot of List Tables Output](/images/list-tables-output.png)
-**Note**: You may have to exit (Enter: quit) and reenter the Database if no relations are found initially.
+**Note**: You may have to exit (Enter: \q) and reenter the Database if no relations are found initially.
 
 - View detailed table information for the `employee` table:  
 
@@ -119,6 +116,12 @@ SELECT COUNT(*) FROM department;
 ```
 
 ![Screenshot of Sample Query Output](/images/sample-query-output.png)  
+
+Exit the database:
+
+```bash
+\q
+```
 
 ---
 
