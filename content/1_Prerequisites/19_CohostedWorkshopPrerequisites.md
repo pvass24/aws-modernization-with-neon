@@ -1,7 +1,7 @@
 ---
 title: "Connecting to your RDS Database"
 chapter: true
-weight: 14
+weight: 19
 ---
 
 # Accessing and Managing Your RDS Database  
