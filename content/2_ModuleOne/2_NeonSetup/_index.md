@@ -1,5 +1,5 @@
 ---
-title: " Set Up Instructions " # MODIFY THIS TITLE IF APPLICABLE
+title: " Neon Set Up Instructions " # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
 weight: 20
 ---

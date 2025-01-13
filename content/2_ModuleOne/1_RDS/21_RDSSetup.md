@@ -1,33 +1,23 @@
 ---
 title: "Connecting to your RDS Database"
 chapter: true
-weight: 19
+weight: 21
 ---
-
 # Accessing and Managing Your RDS Database  
-
 This guide will walk you through accessing your PostgreSQL database, getting the connection details needed for the Neon setup, and seeding the database with sample data.  
-
 ---
-
 ## 🔑 Getting Your Database Connection Details  
-
 Before connecting to the database, you'll need to get your connection details. These are stored as environment variables.  
-
 💡 **Pro Tip**: Copy these values somewhere safe - you'll need them later!  
-
 1. Open a new terminal in **VSCode Server**.  
-
 2. Run these commands to view your connection details in your VSCode Terminal:  
-
 ```bash
 echo $DB_ENDPOINT     # Shows your database endpoint  
 echo $DB_USERNAME     # Shows your database username  
 echo $DB_PASSWORD     # Shows your database password  
 echo $DB_NAME         # Shows your database name  
-echo $DATABASE_URL    # Shows the full connection string  
+echo $DATABASE_URL    # Shows the full connection string
 ```
-
 ![Screenshot of Environment Variable Output](/images/environment-variables-output.png)  
 
 ---
