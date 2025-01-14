@@ -4,13 +4,13 @@ Description: AWS CloudFormation Template for GitHub Actions OIDC Authentication 
 Parameters:
   Owners:
     Type: CommaDelimitedList
-    Default: "change-me!"
+    Default: "change-me-to-your-github-username!"
     Description: >
       A comma-separated list of GitHub organizations or users. Example: 'mygithubusername,another-org'.
 
   RepositoriesPerOwner:
     Type: String
-    Default: "repo1,repo2"
+    Default: "change-me-to-your-github-repo"
     Description: >
       Pipe-separated repository lists corresponding to each owner in the 'Owners' parameter. Use '*' for all repositories.
 
