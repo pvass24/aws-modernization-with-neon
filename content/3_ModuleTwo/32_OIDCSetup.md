@@ -25,7 +25,7 @@ In this section, we'll set up OIDC authentication between GitHub Actions and AWS
    - Select the `github-oidc.yaml` you downloaded
    - Click "Next"
 
-![Upload Template](/images/module2/upload-template.png)
+![Upload Template](/images/upload-template.png)
 
 ## 📝 Stack Configuration
 
