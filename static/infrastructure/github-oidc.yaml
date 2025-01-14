@@ -122,9 +122,6 @@ Resources:
                 Action:
                   - ec2:DescribeInstances
                 Resource: "*"  # This one needs to be * as it's a list API
-                Condition:
-                  StringEquals:
-                    "aws:ResourceTag/Name": "VSCodeServer"
 
               - Sid: SSMSessionManager
                 Effect: Allow
