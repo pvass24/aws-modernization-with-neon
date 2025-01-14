@@ -10,8 +10,7 @@ In this section, we'll create the GitHub repository that will host our database 
 
 ## 🚀 Creating a New Repository
 
-1. Go to [GitHub](https://github.com) and sign in
-2. Click the "+" button in the top right corner and select "New repository"
+1. Go to [GitHub](https://github.com/new) and sign in
 
 ![Create New Repo](/images/create-new-repo.png)
 

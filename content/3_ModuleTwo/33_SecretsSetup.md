@@ -34,12 +34,19 @@ In this section, we'll configure the required secrets for our GitHub Actions wor
 
 ![Add Region Secret](/images/add-region-secret.png)
 
+7. Add your AWS region:
+   - Name: `AWS_ACCOUNT_ROLE`
+   - Secret: Your AWS region (Needs to be: `us-west-2`)
+
+![Add Region Secret](/images/add-role-secret.png)
+
 ## ✅ Verification
 
 Confirm all secrets are listed in your repository:
 - PROD_DATABASE_URL
 - DEV_DATABASE_URL
 - AWS_REGION
+- AWS_ACCOUNT_ROLE
 
 ![Verify Secrets](/images/verify-secrets.png)
 
