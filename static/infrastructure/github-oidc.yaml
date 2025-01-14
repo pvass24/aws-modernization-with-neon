@@ -117,30 +117,18 @@ Resources:
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-password"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/connection-string"
 
-              - Sid: EC2Describe
+              - Sid: EC2Read
                 Effect: Allow
                 Action:
                   - ec2:DescribeInstances
-                Resource: "*"  # This one needs to be * as it's a list API
+                Resource: "*"
 
-              - Sid: SSMSessionManager
+              - Sid: SSMSessionStart
                 Effect: Allow
                 Action:
                   - ssm:StartSession
-                  - ssm:TerminateSession
-                  - ssm:ResumeSession
-                Resource:
-                  - !Sub "arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*"
-                Condition:
-                  StringEquals:
-                    "aws:ResourceTag/Name": "VSCodeServer"
-                    
-              - Sid: SSMSessionManagerService
-                Effect: Allow
-                Action:
-                  - ssm:StartSession
-                Resource:
-                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWS-StartPortForwardingSessionToRemoteHost"
+                Resource: 
+                  - !Sub "arn:aws:ssm:${AWS::Region}:*:document/AWS-StartPortForwardingSessionToRemoteHost"
 
 Outputs:
   GitHubActionsRoleArn:
