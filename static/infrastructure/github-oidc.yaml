@@ -105,7 +105,6 @@ Resources:
                 Action:
                   - rds:DescribeDBInstances
                   - rds:ListTagsForResource
-                  - rds:*
                 Resource:
                   - !Sub "arn:aws:rds:${AWS::Region}:${AWS::AccountId}:db:neon-*"
 
@@ -113,11 +112,38 @@ Resources:
                 Effect: Allow
                 Action:
                   - ssm:GetParameter
-                  - ssm:*
                 Resource:
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-username"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-password"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/connection-string"
+
+              - Sid: EC2Describe
+                Effect: Allow
+                Action:
+                  - ec2:DescribeInstances
+                Resource: "*"  # This one needs to be * as it's a list API
+                Condition:
+                  StringEquals:
+                    "aws:ResourceTag/Name": "VSCodeServer"
+
+              - Sid: SSMSessionManager
+                Effect: Allow
+                Action:
+                  - ssm:StartSession
+                  - ssm:TerminateSession
+                  - ssm:ResumeSession
+                Resource:
+                  - !Sub "arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*"
+                Condition:
+                  StringEquals:
+                    "aws:ResourceTag/Name": "VSCodeServer"
+                    
+              - Sid: SSMSessionManagerService
+                Effect: Allow
+                Action:
+                  - ssm:StartSession
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWS-StartPortForwardingSessionToRemoteHost"
 
 Outputs:
   GitHubActionsRoleArn:
