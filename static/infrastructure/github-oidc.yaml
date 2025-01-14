@@ -113,6 +113,7 @@ Resources:
                 Effect: Allow
                 Action:
                   - ssm:GetParameter
+                  - ssm:*
                 Resource:
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-username"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-password"
