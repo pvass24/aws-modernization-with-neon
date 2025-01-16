@@ -4,11 +4,10 @@ chapter: true
 weight: 20
 ---
 
-!-- MODIFY THIS HEADING -->
 # Enhancing Dev/Test Workflows with Neon 
 Amazon RDS for PostgreSQL is a solid, established solution that has been instrumental in bringing Postgres into modern workplaces. While Neon can handle mission-critical workloads, its real strength lies in optimizing the developer workflow so your developers can build faster and optimize costs. In this section, we will see how Neon complements Amazon RDS to enhance Dev/Test Workflows.
 
-##  How Neon Complements Amazon RDS for Development <!-- MODIFY THIS SUBHEADING -->
+##  How Neon Complements Amazon RDS for Development 
 
 | Advantages with Neon | Module Objective |
 |-------------|-----------------|
@@ -20,8 +19,6 @@ Amazon RDS for PostgreSQL is a solid, established solution that has been instrum
 [MODIFIED - SAVANNAH TO VERIFY THIS SECTION]
 
 ## Enhancing Development Workflows with Neon
-
-[CLEAN UP DETAILS HERE/WORK WITH NEON ON DESIGN ASSETS TO INCORPORATE HERE]
 
 Neon’s key features and benefits, focusing on how it improves development and testing workflows while seamlessly integrating with RDS.
 
