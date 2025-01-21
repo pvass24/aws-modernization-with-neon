@@ -107,7 +107,7 @@ Resources:
                   - rds:ListTagsForResource
                 Resource:
                   - !Sub "arn:aws:rds:${AWS::Region}:${AWS::AccountId}:db:neon-*"
-
+      
               - Sid: SSMParameterAccess
                 Effect: Allow
                 Action:
@@ -116,20 +116,29 @@ Resources:
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-username"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-password"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/connection-string"
-
+      
               - Sid: EC2Read
                 Effect: Allow
                 Action:
                   - ec2:DescribeInstances
                 Resource: "*"
-
+      
               - Sid: SSMSessionStart
                 Effect: Allow
                 Action:
                   - ssm:StartSession
-                  - ssm:TerminateSession
                 Resource: 
                   - !Sub "arn:aws:ssm:${AWS::Region}:*:document/AWS-StartPortForwardingSessionToRemoteHost"
+                  - !Sub "arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*"
+      
+              - Sid: SSMSessionManagement
+                Effect: Allow
+                Action:
+                  - ssm:TerminateSession
+                  - ssm:ResumeSession
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:session/*"
+
 
 Outputs:
   GitHubActionsRoleArn:
