@@ -4,7 +4,7 @@ chapter: true
 weight: 32
 ---
 
-# Module 5: Clean Up 🧹
+# Clean Up Your Lab Resources 🧹
 
 Congratulations on completing the **Neon Twin Deploy Workshop**! Before wrapping up, it’s important to clean up any resources that were created during the workshop to ensure you’re not incurring unnecessary costs or leaving active resources behind in your AWS account.
 
