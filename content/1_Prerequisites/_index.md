@@ -8,5 +8,5 @@ weight = 12
 
 To start the workshop, follow one of the following:
 
-* ...[running the workshop on your own](../self_paced.html), or
-* ...[attending an AWS hosted event](../aws_event.html)
+* ...[running the workshop on your own](../self_paced/_index.md), or
+* ...[attending an AWS hosted event](../aws_event/_index.md)
