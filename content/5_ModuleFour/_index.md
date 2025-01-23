@@ -1,50 +1,111 @@
 ---
-title: "Hugo Framework and Markdown"
+title: "Clean Up"
 chapter: true
 weight: 32
 ---
 
-# Hugo Framework and Markdown
+# Module 5: Clean Up 🧹
 
+Congratulations on completing the **Neon Twin Deploy Workshop**! Before wrapping up, it’s important to clean up any resources that were created during the workshop to ensure you’re not incurring unnecessary costs or leaving active resources behind in your AWS account.
 
+---
 
-### Setting Up The Workshop: AWS Hosted Or Self-paced
-By utilizing the Hugo language localization settings, directing the workshop towards a specific setup can be simplified. The `Language` setting in the `config.toml` file will allow you to distinguish between having one option or both. Commenting out one of the languages will hide all files that are related to that setup. By default, only the self-guided setup will be enabled. To enable switching, set `disableLanguageSwitchingButton` to `false` in the `config.toml`. If you want to have only the Event Engine setup, set the `defaultContentLanguage` at the top of the `config.toml` file to `ee`.
+## 🛠️ Resources to Clean Up
 
-### The Entry Point Of The Workshop And Naming Conventions
-All modifications should be done to files in the `content` folder. `_index.md` serves as the main entry point to your workshop. Adding modules can be done utilizing the format of `#_title` as a folder within `content`. By adding a number value to the title, this helps to keep the files structured in parity with the content of the workshop. A good practice for file naming is to have the folder be the module number and the submodule numbers add to that number reflecting their order. For example, the first module is `1_ModuleOne` and the submodules would be `11_SubmoduleOne`, `12_SubmoduleTwo`, and so forth. 
- <!-- <br> applies a line break to paragraphs -->
-To ensure the modules and submodules follow the correct structure order, adjust the "weight" value in the heading of the file to reflect the order you wish to use. Three module examples are included in this template with the second being split based upon the method of setup. The same rules apply for submodules. `_index.md` will be the entry point of that module. Submodules should be named with the format of `{module number}{weight}_{title}.{language}.md`. For example, `11_Foreword.md` would be the first submodule of module one in the default language/setup. `31_PartnerSetup.ee.md` would be the first submodule of module 3 in the EventEngine language/setup.
+During this workshop, you created the following resources, which need to be cleaned up:
 
-### Working With Hugo Markdown and Shortcode
-The following links will supply you with all the reference documentation about Hugo markdown. For more experienced developers, inline HTML is also an option to add more customization. For example `` inline will allow you to adjust your text placement.
+1. **GitHub Repository**
+   - Contains your workflows and scripts for Neon Twin synchronization.
+2. **CloudFormation Stack**
+   - Deployed resources for OIDC authentication between GitHub and AWS.
+3. **Neon Database Instance**
+   - Created for your development environment.
+4. **RDS Snapshot/Dump File**
+   - Used to restore your RDS database to Neon (if stored in S3).
+5. **Secrets in GitHub**
+   - Sensitive data stored in GitHub Secrets, including database connection strings and AWS region details.
 
-### Markdown and Shortcode Resources
+---
 
-The following links are your go-to resource for markdown and shortcode reference in building your workshop: 
+## 📋 Step-by-Step Clean Up Instructions
 
-* Markdown cheat sheet https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet 
+### 1️⃣ **Delete the CloudFormation Stack**
 
-* Learn theme markdown https://learn.netlify.app/en/cont/markdown/ 
+1. Navigate to the [AWS CloudFormation Console](https://console.aws.amazon.com/cloudformation).
+2. Locate the stack you created (e.g., `github-oidc-stack`).
+3. Select the stack, click on **Actions**, and choose **Delete Stack**.
+4. Confirm the deletion. AWS will remove all resources provisioned by this stack.
 
-* Menu extras and shortcuts https://learn.netlify.app/en/cont/menushortcuts/ 
+> **Tip**: Check the "Events" tab in CloudFormation for progress updates during deletion.
 
-* Using Font Awesome Emoji's  https://learn.netlify.app/en/cont/icons/ to help your page pop 
+---
 
+### 2️⃣ **Remove GitHub Secrets**
 
-### Adding Images and Static Media 
-Any images and static media to be included in the workshop need to be placed in the `static/images` folder. The format to display an image is as follows: `![Alternate Text](/images/imagename.jpg)` 
+1. Go to your GitHub repository and click on **Settings**.
+2. Navigate to **Secrets and variables** → **Actions**.
+3. For each secret you created (e.g., `PROD_DATABASE_URL`, `DEV_DATABASE_URL`, `AWS_REGION`, `AWS_ACCOUNT_ROLE`):
+   - Click the delete icon to remove the secret.
 
+> **Important**: Ensure no workflows are using these secrets before deletion.
 
-For example, the markdown for this dog is `![An adorable puppy](/images/dog.jpg)` and the image is in the `static/images` folder. 
+---
 
-![An adorable puppy](/images/dog.jpg)
+### 3️⃣ **Delete the GitHub Repository**
 
-### Creating Links
-The format for creating links is `[Link Display Text](http://example.com)`. For example, this link [Hugo Framework](https://gohugo.io/about/what-is-hugo/) was created using `[Hugo Framework](https://gohugo.io/about/what-is-hugo/)`.
+1. Navigate to your GitHub repository.
+2. Go to **Settings** → **General** → **Danger Zone**.
+3. Click **Delete this repository** and follow the prompts.
 
-### The "More" Menu Section
-This section of the menu on the left is designed to add additional resources that are related to the workshop but not necessarily part of the workshop itself. To modify these links, edit the sections marked `[[menu.shortcuts]]` in the `config.toml` located in the root folder. The "name" portion will be what is displayed in the menu. The "url" should be the address of the link. The "weight" setting will adjust the display order, similar to the other "weight" settings utilized in indexes and modules mentioned previously.
+> **Note**: Ensure you’ve saved any files or workflows you’d like to keep before deletion.
 
-### Ensuring Pages Appear In Both Setup Versions
-A shortcut to creating the workshop with different setup versions is utilizing the localization functionality of Hugo. By adding a secondary extension to the filename, this file will be included in the specific version of the workshop. Currently, the base utilizes the format `*.ee.md` to signify that the page is to be used in the AWS EventEngine setup. Much of the time, the files will be the same as the content only differs at specific points. It is necessary to add them, however, to make sure that the common content is duplicated across both versions. If you wish to change the secondary extension or default version, this can be done in the `config.toml` file in the heading and `[Languages]` sections.
+---
+
+### 4️⃣ **Delete the Neon Database**
+
+1. Log in to the [Neon Console](https://console.neon.tech).
+2. Locate your Neon database instance.
+3. Click on the database and choose **Delete**.
+
+> **Caution**: Ensure no critical data exists in this database before deletion.
+
+---
+
+### 5️⃣ **Remove RDS Snapshots or Dump Files**
+
+If you created an RDS snapshot or stored a database dump file in S3, follow these steps to remove them:
+
+#### 🗂️ **Remove Snapshots**
+1. Navigate to the [AWS RDS Console](https://console.aws.amazon.com/rds/).
+2. Select **Snapshots** from the left menu.
+3. Locate the snapshot(s) created during the workshop.
+4. Select and delete them.
+
+#### ☁️ **Delete S3 Objects**
+1. Go to the [AWS S3 Console](https://console.aws.amazon.com/s3/).
+2. Locate the bucket where your dump file was stored.
+3. Select the dump file and click **Delete**.
+
+> **Reminder**: Double-check the bucket for any leftover workshop-related files.
+
+---
+
+### 6️⃣ **Verify Cleanup**
+
+- Ensure no active **CloudFormation stacks** remain.
+- Confirm all **Neon databases** are deleted.
+- Check your **GitHub repositories** and **secrets** for any leftovers.
+- Verify that your **AWS account** has no lingering RDS snapshots, S3 files, or associated costs.
+
+---
+
+## 🎯 Summary
+
+By completing these cleanup steps, you’ll:
+- Avoid unnecessary AWS charges.
+- Maintain a tidy GitHub account.
+- Ensure your resources are fully decommissioned.
+
+Thank you for participating in the **Neon Twin Deploy Workshop**! 🎉 If you have feedback or questions, feel free to reach out.
+
+---
