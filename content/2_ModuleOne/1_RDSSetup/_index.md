@@ -56,28 +56,6 @@ ALTER DATABASE employees SET search_path TO employees, public;
 SET search_path TO employees, public;  
 ```
 
-Note: To exit the database enter command below:
-
-```sql
-\q
-```
-
----
-
-## 🔌 Connecting to the Database  
-
-We've set up some handy aliases to make connecting easier!  
-
-- Use the `psql-db` command to connect directly to the database:  
-
-```bash
-psql-db  
-```
-
-![Screenshot of psql-db Command](/images/psql-db-command.png)  
-
----
-
 ## 🔍 Exploring the Database  
 
 Once the dataset is loaded, you can explore it using these commands:  
@@ -112,24 +90,6 @@ Exit the database:
 ```bash
 \q
 ```
-
----
-
-## 🌟 Getting Ready for Neon Setup  
-
-For the upcoming Neon setup section, you'll need your database connection string. Get it by running:  
-
-```bash
-echo $DATABASE_URL  
-```
-
-This will give you something like:  
-
-```plaintext
-postgresql://username:password@endpoint:5432/employees  
-```
-
-⚠️ **Important**: Save this connection string somewhere safe - you'll need it for the Neon configuration!  
 
 ---
 
