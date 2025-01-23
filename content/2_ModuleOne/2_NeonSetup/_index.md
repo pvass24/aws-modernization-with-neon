@@ -16,7 +16,6 @@ Amazon RDS for PostgreSQL is a solid, established solution that has been instrum
 | Improve Data Synchronization Across Environments | Identifying problems related to keeping data in sync between production and development environments and walkthrough of how Neon is addressing these challenges. |
 | Ease of Scaling | Easily scale instances for development and testing purposes. |
 
-[MODIFIED - SAVANNAH TO VERIFY THIS SECTION]
 
 ## Enhancing Development Workflows with Neon
 

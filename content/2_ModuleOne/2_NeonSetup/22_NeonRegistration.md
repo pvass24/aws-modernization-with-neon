@@ -24,7 +24,7 @@ You will be introduced to these key Neon terms:
 - **Branch:** A versioned copy of your database environment. Each Neon project can have multiple branches, as we will see later.
 - **Database:** The actual database instance where your data resides. In Neon, databases live inside branches.
 
-Neon is built on an innovative [branch-based architecture](https://neon.tech/blog/architecture-decisions-in-neon):
+Neon is built on an innovative [branch-based architecture](https://neon.tech/docs/introduction/branching):
 
 - The **main branch** will be your **primary development branch**, where you’ll load the data from your RDS database every night.
 - Once everything is set up, you’ll be able to create additional branches from the main branch to [duplicate your development environment in a second](https://neon.tech/blog/how-to-copy-large-postgres-databases-in-seconds), without additional storage costs, as many times as you need.
