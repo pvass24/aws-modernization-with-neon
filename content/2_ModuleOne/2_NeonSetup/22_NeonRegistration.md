@@ -38,7 +38,7 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/bl
 - Click on the project for which you want to find the connection string. 
 - In the left-hand menu, locate and click on "Connection Details" or "Connect" (this may vary slightly depending on the Neon Console's version).
 
-![Neon Connection Details](/images/neon-connection-details.png)
+![Neon Connection Details](/images/Click_Dashboard.png)
 
 - In the Connection Details section, you will see the connection string displayed. Your connection string will be customized with your Neon credentials. Copy the connections string based on the frameworks you are using.
 -  View or Generate a Password 
