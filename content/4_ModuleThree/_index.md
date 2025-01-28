@@ -74,5 +74,3 @@ Here’s how Neon simplifies and optimizes dev/test workflows:
 ## 🎯 What’s Next?
 
 Start exploring Neon's branching capabilities by following the **hands-on steps** in the next section.
-
-👉 [Go to Hands-On Steps for Ephemeral Environments](31_Feature_Branch.md)
