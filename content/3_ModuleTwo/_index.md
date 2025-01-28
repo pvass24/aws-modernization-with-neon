@@ -1,10 +1,10 @@
 ---
-title: "Setting Up Your Environment"
+title: "Secure Authentication Setup: Connecting GitHub Actions with AWS OIDC"
 chapter: true
 weight: 30
 ---
 
-# Setting Up Your Environment 🌟
+# Setting Up Your Environment Securely 🌟
 
 Welcome to Module 2! In this module, you'll set up the foundational pieces that will enable seamless synchronization between your **Amazon RDS** and **Neon** databases using **GitHub Actions**. This involves configuring your GitHub repository, setting up **OIDC authentication** with AWS, and creating a workflow for automatic data synchronization.
 
