@@ -11,6 +11,6 @@ Click RDS Setup or Next to continue:
 
 {{% children showhidden="false" %}}
 
-* ...[RDS Setup](/content/2_ModuleOne/1_RDSSetup/_index.md)
-* ...[Neon Setup](/content/2_ModuleOne/2_NeonSetup/_index.md)
+* ...[RDS Setup](../1_RDSSetup/)
+* ...[Neon Setup](../2_NeonSetup/)
 
