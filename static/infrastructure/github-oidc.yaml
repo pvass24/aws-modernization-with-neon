@@ -117,7 +117,8 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-username"
                   - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-password"
-                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/connection-string"
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/connection-string",
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rds/db-endpoint"
       
               - Sid: EC2Read
                 Effect: Allow
