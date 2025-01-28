@@ -23,6 +23,7 @@ In this section, we'll set up OIDC authentication between GitHub Actions and AWS
 
 :::alert{header="Important" type="warning"}
 1. If you are in an AWS Event, [click here](https://catalog.us-east-1.prod.workshops.aws/event/account-login) to access the provisioned AWS Account. If you are working on this in your own AWS Account, please ignore this message.
+
 :::
 
 ## 🚀 Deploying the Template
