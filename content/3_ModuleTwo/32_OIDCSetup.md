@@ -13,7 +13,7 @@ In this section, we'll set up OIDC authentication between GitHub Actions and AWS
 1. Download the CloudFormation template from our GitHub repository:
    - Download to your local machine
      
-     '''bash
+     ```bash
      https://github.com/aws-samples/aws-modernization-with-neon/blob/main/static/infrastructure/github-oidc.yaml
      ```
    
