@@ -20,8 +20,6 @@ In this section, we'll create the GitHub repository that will host our database 
    - Initialize with a README
    - Click "Create repository"
 
-![Configure Repo](/images/configure-repo.png)
-
 ## ✅ Verification
 
 Make sure:
