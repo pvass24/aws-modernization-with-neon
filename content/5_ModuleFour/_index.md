@@ -1,7 +1,7 @@
 ---
 title: "Clean Up"
 chapter: true
-weight: 32
+weight: 40
 ---
 
 # Clean Up Your Lab Resources 🧹
