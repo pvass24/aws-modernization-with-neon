@@ -63,7 +63,7 @@ Once the stack creation is complete:
 
 ## 🎯 Next Steps
 
-Once you have your Role ARN, proceed to the next section where we'll set up our GitHub repository.
+Once you have your Role ARN, proceed to the next section where we'll set up our GitHub Secrets.
 
 ## 🔧 Troubleshooting
 
