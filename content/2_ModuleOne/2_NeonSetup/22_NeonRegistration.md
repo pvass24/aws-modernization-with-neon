@@ -1,7 +1,7 @@
 ---
 title: "Neon Registration"
 chapter: true
-weight: 22
+weight: 25
 ---
 
 ### 1. Create a Neon account
@@ -48,18 +48,46 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/do
 
 Export the connection string as an environment variable to simplify future connections:
 
-`export DEV_DATABASE_CONN="<your-connection-string>"`
+```bash
+export DEV_DATABASE_CONN="<your-connection-string>" >> ~/.bashrc
+```
+
+Then to add to apply your updates run:
+
+```bash
+source ~/.bashrc
+```
+
+
+
 
 Replace <your-connection-string> with the connection string from your <b> main branch</b> copied from the Neon Console. 
 
 Confirm that the environment variable is set:
 
-`echo $DEV_DATABASE_CONN`
+```bash
+echo $DEV_DATABASE_CONN
+```
 
 You should see your connection string displayed.
 
 You can now use the connection string to connect to your development database in Neon:
+```bash
+psql $DEV_DATABASE_CONN
+```
 
-`psql $DEV_DATABASE_CONN`
+Or you can use the Neon Console to run queries and explore your database.
 
-Or you can use the Neon Console to run queries and explore your database. 
+Note: This database currently has no table data so running this command below will return no schema/tables: 
+```sql
+\d
+```
+![New Neon DB](/images/new-neon-db.png)
+
+However in the Github Actions section, we will automate the process to sync the RDS database with your Neon DB on a nightly scheduled occurrence.
+
+
+To exit the Neon DB enter:
+```sql
+\q
+```

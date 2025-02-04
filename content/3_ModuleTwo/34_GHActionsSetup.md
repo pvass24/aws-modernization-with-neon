@@ -181,6 +181,7 @@ When you first commit the workflow file:
 1. Navigate to the "Actions" tab in your repository
 2. You'll see "Create Neon Twin" workflow starting automatically
 3. Click on the running workflow to see detailed progress
+4. This will take about 3-5 mins to complete
 
 ![Initial Run](/images/initial-run.png)
 
@@ -199,6 +200,8 @@ You can monitor these key stages:
    - "Dumping data from RDS to file..."
    - "Restoring data to Neon..."
    - Cleanup process
+
+![Successful GH Action](/images/success-run.png)
 
 ### 🚀 Manual Execution
 To run the sync manually:
@@ -221,13 +224,15 @@ If you see issues:
 - Check "Actions" tab for historical runs
 - Each run shows duration and status
 
-## 🎯 Next Steps
+## 🎯 Check Neon DB
 With your sync configured:
 1. Verify data in your Neon database
 
 Connect to your Neon database on your VSCode server using the connection string that we set up in earlier steps. 
 
-`psql $DEV_DATABASE_CONN`
+```sql
+psql $DEV_DATABASE_CONN
+```
 
  and run the following query to verify the data:
 
@@ -241,9 +246,9 @@ GROUP BY d.dept_name
 ORDER BY average_salary DESC
 LIMIT 5;
 ```
+![Neon-DB-Seeded](/images/neon-db-success.png)
 
-You should see the top 5 departments with the highest average salary. 
+**You should see the top 5 departments with the highest average salary.**
 
+### 🚀 Congrats! You have successfully synced your RDS Database with your Neon Database! Now lets head over to the next section where we dive into Neon Branches.
 
-2. Test database connections
-3. Set up your development environment

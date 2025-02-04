@@ -1,7 +1,7 @@
 ---
 title: " Neon Set Up Instructions " # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
-weight: 20
+weight: 24
 ---
 
 # Enhancing Dev/Test Workflows with Neon 

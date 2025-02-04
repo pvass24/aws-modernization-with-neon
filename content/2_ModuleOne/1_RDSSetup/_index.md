@@ -1,7 +1,7 @@
 ---
 title: "Connecting to your RDS Database"
 chapter: true
-weight: 20
+weight: 21
 ---
 # Accessing and Managing Your RDS Database  
 This guide will walk you through accessing your PostgreSQL database, getting the connection details needed for the Neon setup, and seeding the database with sample data.  
@@ -62,7 +62,7 @@ Once the dataset is loaded, you can explore it using these commands:
 
 - List all Schemas and tables:  
 
-```bash
+```sql
 \d
 ```
 
@@ -87,7 +87,7 @@ SELECT COUNT(*) FROM department;
 
 Exit the database:
 
-```bash
+```sql
 \q
 ```
 

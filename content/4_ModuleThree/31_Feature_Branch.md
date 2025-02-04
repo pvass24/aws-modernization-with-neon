@@ -3,7 +3,7 @@ title: "Hands-On: Neon Branching Workflow"
 weight: 35
 ---
 
-# Hands-On: Neon Branching Workflow 🛠️
+# Neon Branching 🛠️
 
 In this section, you'll learn how to create, modify, and verify changes in a **Neon feature database** to experience the benefits of isolated development and testing.
 
@@ -15,26 +15,33 @@ Follow these steps to create a feature database in the Neon Console:
 
 1. Log in to the [Neon Console](https://console.neon.tech).
 2. Navigate to your project and open the **Branches** tab.
-3. Click **New Branch**.
+3. Click **Create Branch**.
 4. Name your branch (e.g., `feature-test-db`).
 5. Select the **main branch** (Main Database) as the parent and click **Create**.
 
 > **Result**: You've created a new feature database with a full copy of the main branch's data.
 
-![Create a new feature branch in Neon Console](/static/images/FeatureTestBranch.png)
+![Feature Branch](/images/FeatureTestBranch.png)
 
 ---
 
 ## ✅ Step 2: Connect to the Feature Database
 
 1. In the **Branches** tab, copy the connection string for your feature database.
+
+![Manual Run](/images/feature-branch-connection.png)
+
 2. Go back to the **server** and open the terminal.
 3. Export the connection string as an environment variable to simplify future connections:
    ```bash
-   export FEATURE_DATABASE_CONN="<your-connection-string>"
+   export FEATURE_DATABASE_CONN="<your-connection-string>" >> ~/.bashrc
    ```
-
    Replace `<your-connection-string>` with the connection string copied from the Neon Console.
+
+   Then to add to apply your updates run:
+   ```bash
+   source ~/.bashrc
+   ```
 
 4. Confirm that the environment variable is set:
    ```bash
@@ -50,8 +57,10 @@ Follow these steps to create a feature database in the Neon Console:
 
 6. Verify that the feature database's data matches the main database:
    ```sql
-   SELECT * FROM employees.salary;
+   SELECT * FROM employees.salary LIMIT 15;
    ```
+
+   ![Feature Salary](/images/feature-salary.png)
 
 ---
 
@@ -68,10 +77,13 @@ ALTER TABLE employees.salary ADD COLUMN bonus NUMERIC(10, 2) DEFAULT 0;
 Verify the change:
 
 ```sql
-SELECT * FROM employees.salary;
+SELECT * FROM employees.salary LIMIT 15;
 ```
 
 Confirm the **bonus** column is added.
+
+![Feature Bonus](/images/feature-bonus.png)
+
 
 ---
 
@@ -91,6 +103,14 @@ The connection string for the **main database** is already saved as an environme
    WHERE table_name = 'salary';
    ```
 
+3. Confirm Main Neon Database is unaffected:
+
+   ```sql
+   SELECT * FROM employees.salary LIMIT 15;
+   ```
+
+![Neon DB Schema](/images/neon-db-schema.png)
+
 > **Result**: The `bonus` column will not appear in the main database.
 
 ---
@@ -109,7 +129,7 @@ Alternatively, you can delete the feature database programmatically using the Ne
    -H "Authorization: Bearer <api-key>"
    ```
 
-![Delete Feature Branch](/static/images/DeleteFeatureBranch.png)
+![Delete Feature Branch](/images/DeleteFeatureBranch.png)
 
 
 
