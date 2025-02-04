@@ -1,7 +1,7 @@
 ---
 title: "Neon Registration"
 chapter: true
-weight: 45
+weight: 23
 ---
 
 ### 1. Create a Neon account

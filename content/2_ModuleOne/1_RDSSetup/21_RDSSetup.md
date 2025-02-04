@@ -1,7 +1,7 @@
 ---
 title: "Connecting to your RDS Database"
 chapter: true
-weight: 1
+weight: 21
 ---
 # Accessing and Managing Your RDS Database  
 This guide will walk you through accessing your PostgreSQL database, getting the connection details needed for the Neon setup, and seeding the database with sample data.  
