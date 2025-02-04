@@ -5,7 +5,7 @@ weight: 35
 
 # Hands-On: Neon Branching Workflow 🛠️
 
-In this section, you’ll learn how to create, modify, and verify changes in a **Neon feature database** to experience the benefits of isolated development and testing.
+In this section, you'll learn how to create, modify, and verify changes in a **Neon feature database** to experience the benefits of isolated development and testing.
 
 ---
 
@@ -19,9 +19,9 @@ Follow these steps to create a feature database in the Neon Console:
 4. Name your branch (e.g., `feature-test-db`).
 5. Select the **main branch** (Main Database) as the parent and click **Create**.
 
-> **Result**: You’ve created a new feature database with a full copy of the main branch’s data.
+> **Result**: You've created a new feature database with a full copy of the main branch's data.
 
-![Placeholder for screenshot of Neon Console Branches tab showing "New Branch" creation steps.](placeholder-for-screenshot.png)
+![Create a new feature branch in Neon Console](/static/images/FeatureTestBranch.png)
 
 ---
 
@@ -48,7 +48,7 @@ Follow these steps to create a feature database in the Neon Console:
    psql $FEATURE_DATABASE_CONN
    ```
 
-6. Verify that the feature database’s data matches the main database:
+6. Verify that the feature database's data matches the main database:
    ```sql
    SELECT * FROM employees.salary;
    ```
@@ -109,13 +109,15 @@ Alternatively, you can delete the feature database programmatically using the Ne
    -H "Authorization: Bearer <api-key>"
    ```
 
-![Placeholder for screenshot of Neon Console showing branch deletion steps.](placeholder-for-screenshot.png)
+![Delete Feature Branch](/static/images/DeleteFeatureBranch.png)
+
+
 
 ---
 
-## 🎯 Summary
+## �� Summary
 
-With Neon’s branching feature, you’ve:
+With Neon's branching feature, you've:
 - Created a new feature database for isolated testing.
 - Exported the connection string as an environment variable for easier access.
 - Applied schema changes without impacting the main database.
