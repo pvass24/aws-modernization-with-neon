@@ -43,3 +43,23 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/do
 - In the Connection Details section, you will see the connection string displayed. Your connection string will be customized with your Neon credentials. Copy the connections string based on the frameworks you are using.
 -  View or Generate a Password 
 -  If you need a password, look for a button to "Reveal Password" or "Reset Password" in the Connection Details section. Follow the prompts to view or reset it as needed.
+
+### 3. Go back to the VsCode server and open the terminal.
+
+Export the connection string as an environment variable to simplify future connections:
+
+`export DEV_DATABASE_CONN="<your-connection-string>"`
+
+Replace <your-connection-string> with the connection string from your <b> main branch</b> copied from the Neon Console. 
+
+Confirm that the environment variable is set:
+
+`echo $DEV_DATABASE_CONN`
+
+You should see your connection string displayed.
+
+You can now use the connection string to connect to your development database in Neon:
+
+`psql $DEV_DATABASE_CONN`
+
+Or you can use the Neon Console to run queries and explore your database. 

@@ -224,5 +224,26 @@ If you see issues:
 ## 🎯 Next Steps
 With your sync configured:
 1. Verify data in your Neon database
+
+Connect to your Neon database on your VSCode server using the connection string that we set up in earlier steps. 
+
+`psql $DEV_DATABASE_CONN`
+
+ and run the following query to verify the data:
+
+```sql
+SELECT d.dept_name, AVG(s.amount) AS average_salary
+FROM employees.salary s
+JOIN employees.department_employee de ON s.employee_id = de.employee_id
+JOIN employees.department d ON de.department_id = d.id
+WHERE s.to_date > CURRENT_DATE AND de.to_date > CURRENT_DATE
+GROUP BY d.dept_name
+ORDER BY average_salary DESC
+LIMIT 5;
+```
+
+You should see the top 5 departments with the highest average salary. 
+
+
 2. Test database connections
 3. Set up your development environment
