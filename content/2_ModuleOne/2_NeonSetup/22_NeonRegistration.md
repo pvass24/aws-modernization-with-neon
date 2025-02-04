@@ -49,7 +49,7 @@ Neon is built on an innovative [branch-based architecture](https://neon.tech/do
 Export the connection string as an environment variable to simplify future connections:
 
 ```bash
-export DEV_DATABASE_CONN="<your-connection-string>" >> ~/.bashrc
+export DEV_DATABASE_URL="<your-connection-string>" >> ~/.bashrc
 ```
 
 Then to add to apply your updates run:
@@ -66,14 +66,14 @@ Replace <your-connection-string> with the connection string from your <b> main b
 Confirm that the environment variable is set:
 
 ```bash
-echo $DEV_DATABASE_CONN
+echo $DEV_DATABASE_URL
 ```
 
 You should see your connection string displayed.
 
 You can now use the connection string to connect to your development database in Neon:
 ```bash
-psql $DEV_DATABASE_CONN
+psql $DEV_DATABASE_URL
 ```
 
 Or you can use the Neon Console to run queries and explore your database.

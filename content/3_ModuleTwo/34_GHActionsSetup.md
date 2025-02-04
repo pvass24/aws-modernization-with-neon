@@ -231,7 +231,7 @@ With your sync configured:
 Connect to your Neon database on your VSCode server using the connection string that we set up in earlier steps. 
 
 ```sql
-psql $DEV_DATABASE_CONN
+psql $DEV_DATABASE_URL
 ```
 
  and run the following query to verify the data:
