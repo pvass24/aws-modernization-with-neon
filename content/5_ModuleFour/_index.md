@@ -85,7 +85,8 @@ If you created an RDS snapshot or stored a database dump file in S3, follow thes
 #### ☁️ **Delete S3 Objects**
 1. Go to the [AWS S3 Console](https://console.aws.amazon.com/s3/).
 2. Locate the bucket where your dump file was stored.
-3. Select the dump file and click **Delete**.
+3. Click on empty s3 bucket.
+4. Select the dump file and click **Delete**.
 
 > **Reminder**: Double-check the bucket for any leftover workshop-related files.
 
