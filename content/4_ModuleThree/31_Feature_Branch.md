@@ -135,7 +135,7 @@ Alternatively, you can delete the feature database programmatically using the Ne
 
 ---
 
-## �� Summary
+## 🏁 Summary 🏁
 
 With Neon's branching feature, you've:
 - Created a new feature database for isolated testing.
