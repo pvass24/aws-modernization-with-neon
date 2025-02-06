@@ -20,7 +20,7 @@ In this section, we'll configure the required secrets for our GitHub Actions wor
    - Name: `PROD_DATABASE_URL`
    - Secret: Your RDS connection string (from Module 1)
 
-![Add Production Secret](/images/add-prod-secret.png)
+![Add Production Secret](/images/add-prod-secret2.png)
 
 5. Add your Neon connection string:
    - Name: `DEV_DATABASE_URL`
