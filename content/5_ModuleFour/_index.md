@@ -17,7 +17,7 @@ During this workshop, you created the following resources, which need to be clea
 1. **GitHub Repository**
    - Contains your workflows and scripts for Neon Twin synchronization.
 2. **CloudFormation Stack**
-   - Deployed resources for OIDC authentication between GitHub and AWS.
+   - Deployed resources for OIDC authentication between GitHub and AWS, the VS Code Server & the RDS Database Instance.
 3. **Neon Database Instance**
    - Created for your development environment.
 4. **RDS Snapshot/Dump File**
@@ -32,9 +32,10 @@ During this workshop, you created the following resources, which need to be clea
 ### 1️⃣ **Delete the CloudFormation Stack**
 
 1. Navigate to the [AWS CloudFormation Console](https://console.aws.amazon.com/cloudformation).
-2. Locate the stack you created (e.g., `github-oidc-stack`).
-3. Select the stack, click on **Actions**, and choose **Delete Stack**.
-4. Confirm the deletion. AWS will remove all resources provisioned by this stack.
+2. Locate the stacks created (e.g., `your-github-oidc-stack`, `vscode-server`, & `neon-rds-template`).
+4. Select the stack, click on **Actions**, and choose **Delete Stack**.
+5. Confirm the deletion. AWS will remove all resources provisioned by this stack.
+6. Repeat the process for the other 2 stacks.
 
 > **Tip**: Check the "Events" tab in CloudFormation for progress updates during deletion.
 
