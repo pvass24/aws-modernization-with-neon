@@ -1,18 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: RDS PostgreSQL instance in default VPC
 
-Parameters:
-  DBUsername:
-    Type: String
-    Description: Database admin username
-    Default: postgres
-  DBPassword:
-    Type: String
-    Description: Database admin password
-    NoEcho: true
-    Default: ilovene0n
-
 Resources:
+  RDSSecret:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Sub '${AWS::StackName}-rds-credentials'
+      Description: 'Secret for RDS database credentials'
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "postgres"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 16
+        ExcludeCharacters: '"@/\\'
+
   # Default VPC Lookup Lambda
   DefaultVPCLookupLambda:
     Type: AWS::Lambda::Function
@@ -157,6 +157,11 @@ Resources:
           FromPort: 5432
           ToPort: 5432
           CidrIp: !GetAtt DefaultVPCLookup.CidrBlock
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: !GetAtt DefaultVPCLookup.CidrBlock
 
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
@@ -172,14 +177,16 @@ Resources:
       EngineVersion: 16.3
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
-      MasterUsername: !Ref DBUsername
-      MasterUserPassword: !Ref DBPassword
+      MasterUsername: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:username}}' ]]
+      MasterUserPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:password}}' ]]
       VPCSecurityGroups:
         - !Ref DBSecurityGroup
       PubliclyAccessible: false
       BackupRetentionPeriod: 1
       MultiAZ: false
       DBSubnetGroupName: !Ref DBSubnetGroup
+      StorageEncrypted: true
+      DeletionProtection: true
       Tags:
         - Key: Name
           Value: Employees-DB
@@ -196,21 +203,24 @@ Resources:
     Properties:
       Name: /rds/db-username
       Type: String
-      Value: !Ref DBUsername
+      Value: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:username}}' ]]
 
   StoreDBPasswordParameter:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /rds/db-password
       Type: String
-      Value: !Ref DBPassword
+      Value: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:password}}' ]]
   
   StoreConnectionStringParameter:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /rds/connection-string
       Type: String
-      Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+      Value: !Sub 
+        - 'postgresql://${Username}:${Password}@${RDSInstance.Endpoint.Address}:5432/employees'
+        - Username: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:username}}' ]]
+          Password: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:password}}' ]]
 
 Outputs:
   DBEndpoint:
@@ -219,20 +229,17 @@ Outputs:
     Export:
       Name: RDS-DBEndpoint
 
-  DBUsername:
-    Description: Database admin username.
-    Value: !Ref DBUsername
+  DBSecretArn:
+    Description: The ARN of the database credentials secret
+    Value: !Ref RDSSecret
     Export:
-      Name: RDS-DBUsername
-
-  DBPassword:
-    Description: Database admin password.
-    Value: !Ref DBPassword
-    Export:
-      Name: RDS-DBPassword
+      Name: RDS-SecretArn
 
   ConnectionString:
     Description: PostgreSQL connection string.
-    Value: !Sub postgresql://${DBUsername}:${DBPassword}@${RDSInstance.Endpoint.Address}:5432/employees
+    Value: !Sub 
+      - 'postgresql://${Username}:${Password}@${RDSInstance.Endpoint.Address}:5432/employees'
+      - Username: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:username}}' ]]
+        Password: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSSecret, ':SecretString:password}}' ]]
     Export:
       Name: RDS-ConnectionString

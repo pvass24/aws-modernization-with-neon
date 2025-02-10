@@ -49,22 +49,6 @@ Parameters:
     Description: S3 path holding the folder zip file, with each folder being a subfolder of the home directory. Each folder will have its own local git repo. To not include any folders, leave blank
     Type: String
     Default: ''
-  DBEndpoint:
-    Type: String
-    Description: The RDS database endpoint.
-    Default: ""
-  DBUsername:
-    Type: String
-    Description: The RDS database username.
-    Default: "postgres"
-  DBPassword:
-    Type: String
-    Description: The RDS database password.
-    Default: "ilovene0n"
-  RDSConnectionString:
-    Type: String
-    Description: The RDS database Connection String.
-    Default: ""
 
 
 Conditions:
