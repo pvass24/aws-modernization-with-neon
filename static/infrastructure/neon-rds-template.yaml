@@ -11,7 +11,8 @@ Resources:
         SecretStringTemplate: '{"username": "postgres"}'
         GenerateStringKey: 'password'
         PasswordLength: 16
-        ExcludeCharacters: '"@/\\'
+        ExcludePunctuation: true
+        ExcludeCharacters: '"@/\$%^&*()_+<>?:{}[]~`|='
 
   # Default VPC Lookup Lambda
   DefaultVPCLookupLambda:
